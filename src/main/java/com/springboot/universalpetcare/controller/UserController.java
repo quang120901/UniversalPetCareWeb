@@ -1,6 +1,6 @@
 package com.springboot.universalpetcare.controller;
 
-import org.springframework.boot.webmvc.autoconfigure.WebMvcProperties.Apiversion.Use;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,11 +14,13 @@ import com.springboot.universalpetcare.model.User;
 import com.springboot.universalpetcare.request.RegistrationRequest;
 import com.springboot.universalpetcare.respone.ApiResponse;
 import com.springboot.universalpetcare.service.user.UserService;
+import com.springboot.universalpetcare.ultis.FeedBackMessage;
+import com.springboot.universalpetcare.ultis.UrlMapping;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping(UrlMapping.USER)
 @RestController
 public class UserController {
     private final UserService userService;
@@ -29,9 +31,11 @@ public class UserController {
         try {
             User user = userService.add(request);
             UserDto registeredUser = entityConverter.mapEntityToDto(user, UserDto.class);
-            return ResponseEntity.ok(new ApiResponse("User registered successfully", registeredUser));
+            return ResponseEntity.ok(new ApiResponse(FeedBackMessage.SUCCESS, registeredUser));
         } catch (UserAlreadyExistsException e) {
-            return ResponseEntity.ok(new ApiResponse(e.getMessage(), null));
-        }  
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(e.getMessage(), null));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
+        }
     }
 }
