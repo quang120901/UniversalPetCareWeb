@@ -1,7 +1,11 @@
 package com.springboot.universalpetcare.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,6 +26,7 @@ import com.springboot.universalpetcare.ultis.FeedBackMessage;
 import com.springboot.universalpetcare.ultis.UrlMapping;
 
 import lombok.RequiredArgsConstructor;
+
 
 @RequiredArgsConstructor
 @RequestMapping(UrlMapping.USER)
@@ -56,5 +61,34 @@ public class UserController {
         }
     }
 
+    @GetMapping(UrlMapping.GET_USER_BY_ID)
+    public ResponseEntity<ApiResponse> findById(@PathVariable Long userId) {
+        try {
+            User user = userService.findById(userId);
+            UserDto theUser = entityConverter.mapEntityToDto(user, UserDto.class);
+            return ResponseEntity.status(HttpStatus.FOUND).body(new ApiResponse(FeedBackMessage.FOUND, theUser));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
+        }
+    }
 
+    @DeleteMapping(UrlMapping.DELETE_USER_BY_ID)
+    public ResponseEntity<ApiResponse> deleteById(@PathVariable Long userId) {
+        try {
+            userService.delete(userId);
+            return ResponseEntity.ok(new ApiResponse(FeedBackMessage.DELETE_SUCCESS, null));
+        } catch(ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
+        }
+    }
+
+    @GetMapping(UrlMapping.GET_ALL_USERS)
+    public ResponseEntity<ApiResponse> getAllUsers() {
+        List<UserDto> theUsers = userService.getAllUsers();
+        return ResponseEntity.status(HttpStatus.FOUND).body(new ApiResponse(FeedBackMessage.FOUND, theUsers));
+    }
 }
