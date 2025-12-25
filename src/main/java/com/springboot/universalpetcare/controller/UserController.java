@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.universalpetcare.dto.EntityConverter;
 import com.springboot.universalpetcare.dto.UserDto;
+import com.springboot.universalpetcare.exception.UserAlreadyExistsException;
 import com.springboot.universalpetcare.model.User;
 import com.springboot.universalpetcare.request.RegistrationRequest;
 import com.springboot.universalpetcare.respone.ApiResponse;
@@ -29,8 +30,8 @@ public class UserController {
             User user = userService.add(request);
             UserDto registeredUser = entityConverter.mapEntityToDto(user, UserDto.class);
             return ResponseEntity.ok(new ApiResponse("User registered successfully", registeredUser));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new ApiResponse("User registration failed: " + e.getMessage(), null));
+        } catch (UserAlreadyExistsException e) {
+            return ResponseEntity.ok(new ApiResponse(e.getMessage(), null));
         }  
     }
 }
