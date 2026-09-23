@@ -7,6 +7,7 @@ public class Appointment {
     private Long id;
     private String reason;
     private LocalDate date;
+    private LocalDate time;
     private String appointmentNo;
     private LocalDate createdAt;
     private User patient;
