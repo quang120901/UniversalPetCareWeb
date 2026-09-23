@@ -1,5 +1,8 @@
 package com.springboot.universalpetcare.model;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +36,13 @@ public class User {
     private String password;
     private String userType;
     private boolean isEnabled;
+
+    private LocalDate createdAt;
     
     @Transient
     private String specialization;
+
+    @Transient 
+    List<Appointment> appointments;
+
 }
