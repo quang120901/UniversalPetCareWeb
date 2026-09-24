@@ -5,7 +5,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.springboot.universalpetcare.enums.AppointmentStatus;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumeratedValue;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -26,6 +31,9 @@ public class Appointment {
     private LocalDate time;
     private String appointmentNo;
     private LocalDate createdAt;
+
+    @Enumerated (EnumType.STRING)
+    private AppointmentStatus status;
 
     @JoinColumn(name = "sender")
     @ManyToOne(fetch = FetchType.LAZY)
