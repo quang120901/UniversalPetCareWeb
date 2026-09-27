@@ -27,8 +27,8 @@ import lombok.Setter;
 public class Appointment {
     private Long id;
     private String reason;
-    private LocalDate date;
-    private LocalDate time;
+    private LocalDate appointmentDate;
+    private LocalDate appointmentTime;
     private String appointmentNo;
     private LocalDate createdAt;
 
