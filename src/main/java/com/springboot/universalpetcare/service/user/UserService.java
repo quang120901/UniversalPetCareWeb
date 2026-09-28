@@ -1,10 +1,8 @@
 package com.springboot.universalpetcare.service.user;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import org.springframework.boot.webmvc.autoconfigure.WebMvcProperties.Apiversion.Use;
 import org.springframework.stereotype.Service;
 
 import com.springboot.universalpetcare.factory.UserFactory;

@@ -14,9 +14,7 @@ import com.springboot.universalpetcare.model.Appointment;
 import com.springboot.universalpetcare.model.User;
 import com.springboot.universalpetcare.repository.AppointmentRepository;
 import com.springboot.universalpetcare.repository.UserRepository;
-import com.springboot.universalpetcare.request.AppointmentRequest;
 import com.springboot.universalpetcare.request.AppointmentUpdateRequest;
-import com.springboot.universalpetcare.ultis.FeedBackMessage;
 
 import lombok.RequiredArgsConstructor;
 
