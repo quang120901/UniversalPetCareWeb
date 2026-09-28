@@ -1,6 +1,5 @@
 package com.springboot.universalpetcare.request;
 
-import jakarta.persistence.Column;
 import lombok.Data;
 
 @Data

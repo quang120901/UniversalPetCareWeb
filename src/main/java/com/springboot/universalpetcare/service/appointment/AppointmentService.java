@@ -1,7 +1,6 @@
 package com.springboot.universalpetcare.service.appointment;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
