@@ -15,6 +15,7 @@ import com.springboot.universalpetcare.model.User;
 import com.springboot.universalpetcare.repository.AppointmentRepository;
 import com.springboot.universalpetcare.repository.UserRepository;
 import com.springboot.universalpetcare.request.AppointmentRequest;
+import com.springboot.universalpetcare.request.AppointmentUpdateRequest;
 import com.springboot.universalpetcare.ultis.FeedBackMessage;
 
 import lombok.RequiredArgsConstructor;
@@ -46,13 +47,13 @@ public class AppointmentService implements IAppointmentService{
     }
 
     @Override
-    public Appointment updateAppointment(Long id, AppointmentRequest request) {
+    public Appointment updateAppointment(Long id, AppointmentUpdateRequest request) {
         Appointment existingAppointment = getAppointmentById(id);
         if(!Objects.equals(existingAppointment.getStatus(), AppointmentStatus.WAITING_FOR_APPROVAL)) {
             throw new IllegalStateException("Sorry, this appointment can no longer be updated");
         }
-        existingAppointment.setAppointmentDate(LocalDate.parse(request.getAppointmentDate()));
-        existingAppointment.setAppointmentTime(LocalDate.parse(request.getAppointmentTime()));
+        existingAppointment.setAppointmentDate(LocalDate.parse(request.getAppoinmentDate()));
+        existingAppointment.setAppointmentTime(LocalDate.parse(request.getAppoinmentTime()));
         existingAppointment.setReason(request.getReason());
         return appointmentRepository.save(existingAppointment);
     }
