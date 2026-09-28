@@ -3,6 +3,7 @@ package com.springboot.universalpetcare.service.appointment;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -30,8 +31,8 @@ public class AppointmentService implements IAppointmentService{
         Optional<User> sender = userRepository.findById(senderId);
         Optional<User> recipient = userRepository.findById(recipientId);
         if(sender.isPresent() && recipient.isPresent()) {
-            appointment.setPatient(sender.get());
-            appointment.setVeterinarian(recipient.get());
+            appointment.addPatient(sender.get());
+            appointment.addVeterinarian(recipient.get());
             appointment.setAppointmentNo();
             appointment.setStatus(AppointmentStatus.WAITING_FOR_APPROVAL);
             return appointmentRepository.save(appointment);
@@ -46,14 +47,26 @@ public class AppointmentService implements IAppointmentService{
 
     @Override
     public Appointment updateAppointment(Long id, AppointmentRequest request) {
-        return null;
+        Appointment existingAppointment = getAppointmentById(id);
+        if(!Objects.equals(existingAppointment.getStatus(), AppointmentStatus.WAITING_FOR_APPROVAL)) {
+            throw new IllegalStateException("Sorry, this appointment can no longer be updated");
+        }
+        existingAppointment.setAppointmentDate(LocalDate.parse(request.getAppointmentDate()));
+        existingAppointment.setAppointmentTime(LocalDate.parse(request.getAppointmentTime()));
+        existingAppointment.setReason(request.getReason());
+        return appointmentRepository.save(existingAppointment);
     }
 
     @Override
-    public void deleteAppointment(Long id) {
-        appointmentRepository.findById(id)
-                .ifPresent(appointment -> {appointmentRepository.delete(appointment); });;
-    }
+public void deleteAppointment(Long id) {
+    appointmentRepository.findById(id)
+            .ifPresentOrElse(
+                appointment -> appointmentRepository.delete(appointment), 
+                () -> {
+                    throw new ResourceNotFoundException("appointment not found");
+                }
+            );
+}
 
     @Override
     public Appointment getAppointmentById(Long id) {
