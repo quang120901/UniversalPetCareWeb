@@ -2,6 +2,7 @@ package com.springboot.universalpetcare.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.springboot.universalpetcare.enums.AppointmentStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -19,6 +21,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -56,6 +59,16 @@ public class Appointment {
     @JoinColumn(name = "recipient")
     @ManyToOne(fetch = FetchType.LAZY)
     private User veterinarian;
+    
+    @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)
+    List<Pet> pets = new ArrayList<>();
+
+
+
+
+
+
+
 
     public void addPatient(User sender) {
         this.setPatient(sender);
