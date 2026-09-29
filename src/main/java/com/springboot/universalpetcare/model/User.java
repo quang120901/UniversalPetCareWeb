@@ -3,6 +3,8 @@ package com.springboot.universalpetcare.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,6 +39,7 @@ public class User {
     private String userType;
     private boolean isEnabled;
 
+    @CreationTimestamp
     private LocalDate createdAt;
     
     @Transient

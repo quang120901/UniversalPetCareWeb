@@ -11,6 +11,7 @@ import com.springboot.universalpetcare.model.User;
 import com.springboot.universalpetcare.repository.UserRepository;
 import com.springboot.universalpetcare.request.RegistrationRequest;
 import com.springboot.universalpetcare.request.UserUpdateRequest;
+import com.springboot.universalpetcare.ultis.FeedBackMessage;
 import com.springboot.universalpetcare.dto.EntityConverter;
 import com.springboot.universalpetcare.dto.UserDto;
 import com.springboot.universalpetcare.exception.ResourceNotFoundException;
@@ -45,14 +46,14 @@ public class UserService implements IUserService {
     @Override
     public User findById(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(FeedBackMessage.NOT_FOUND));
     }
 
     @Override
     public void delete(Long userId) {
         userRepository.findById(userId)
             .ifPresentOrElse(userRepository::delete, () -> {
-                throw new ResourceNotFoundException("User not found");
+                throw new ResourceNotFoundException(FeedBackMessage.NOT_FOUND);
             });
     }
 

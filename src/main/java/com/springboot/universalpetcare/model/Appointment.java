@@ -4,12 +4,19 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.springboot.universalpetcare.enums.AppointmentStatus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -21,15 +28,24 @@ import lombok.Setter;
 @Getter 
 @Setter 
 @AllArgsConstructor 
-@NoArgsConstructor 
+@NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","patient","veterinarian"})
 public class Appointment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String reason;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate appointmentDate;
+    
+    @JsonFormat(pattern = "HH:mm")
     private LocalDate appointmentTime;
     private String appointmentNo;
-    private LocalDate createdAt;
 
+    @CreationTimestamp 
+    private LocalDate createdAt;
+    
     @Enumerated (EnumType.STRING)
     private AppointmentStatus status;
 
