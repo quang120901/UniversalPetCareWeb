@@ -2,13 +2,19 @@ package com.springboot.universalpetcare.service.pet;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.springboot.universalpetcare.exception.ResourceNotFoundException;
 import com.springboot.universalpetcare.model.Pet;
 import com.springboot.universalpetcare.repository.PetRepository;
 import com.springboot.universalpetcare.ultis.FeedBackMessage;
 
+import lombok.RequiredArgsConstructor;
+
+@Service 
+@RequiredArgsConstructor 
 public class PetService implements IPetService{
-    private PetRepository petRepository;
+    private final PetRepository petRepository;
 
     @Override
     public List<Pet> savePetsForAppointment(List<Pet> pets) {
