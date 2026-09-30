@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.universalpetcare.exception.ResourceNotFoundException;
 import com.springboot.universalpetcare.model.Appointment;
 import com.springboot.universalpetcare.request.AppointmentUpdateRequest;
+import com.springboot.universalpetcare.request.BookAppointmentRequest;
 import com.springboot.universalpetcare.respone.ApiResponse;
 import com.springboot.universalpetcare.service.appointment.AppointmentService;
 import com.springboot.universalpetcare.ultis.FeedBackMessage;
@@ -52,11 +53,11 @@ public class AppointmentController {
 
     @PostMapping("UrlMapping.BOOK_APPOINTMENT")
     public ResponseEntity<ApiResponse> bookAppointment(
-        @RequestBody Appointment appointment, 
+        @RequestBody BookAppointmentRequest request, 
         @RequestParam Long senderId,
         @RequestParam Long recipientId) {
             try {
-                Appointment theAppoinment = appointmentService.createAppointment(appointment, senderId, recipientId);
+                Appointment theAppoinment = appointmentService.createAppointment(request, senderId, recipientId);
                 return ResponseEntity.ok(new ApiResponse(FeedBackMessage.CREATE_SUCCESS, theAppoinment));
             } catch (ResourceNotFoundException e) {
                 return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
