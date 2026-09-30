@@ -43,7 +43,7 @@ public class AppointmentController {
     public ResponseEntity<ApiResponse> getAllApointments() {
         try {
             List<Appointment> appointments = appointmentService.getAllAppointments();
-            return ResponseEntity.status(FOUND).body(new ApiResponse(FeedBackMessage.FOUND, appointments));
+            return ResponseEntity.status(FOUND).body(new ApiResponse(FeedBackMessage.RESOURCE_FOUND, appointments));
 
         } catch(Exception e){
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
@@ -57,7 +57,7 @@ public class AppointmentController {
         @RequestParam Long recipientId) {
             try {
                 Appointment theAppoinment = appointmentService.createAppointment(appointment, senderId, recipientId);
-                return ResponseEntity.ok(new ApiResponse(FeedBackMessage.SUCCESS, theAppoinment));
+                return ResponseEntity.ok(new ApiResponse(FeedBackMessage.CREATE_SUCCESS, theAppoinment));
             } catch (ResourceNotFoundException e) {
                 return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
             } catch (Exception e) {
@@ -69,7 +69,7 @@ public class AppointmentController {
     public ResponseEntity<ApiResponse> getAppointmentById(@PathVariable Long id) {
         try {
             Appointment appointment = appointmentService.getAppointmentById(id);
-            return ResponseEntity.status(FOUND).body(new ApiResponse(FeedBackMessage.FOUND, appointment));
+            return ResponseEntity.status(FOUND).body(new ApiResponse(FeedBackMessage.RESOURCE_FOUND, appointment));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }
@@ -79,7 +79,7 @@ public class AppointmentController {
     public ResponseEntity<ApiResponse> getAppointmentByNo(@PathVariable String appointmentNo) {
         try {
             Appointment appointment = appointmentService.getAppointmentByNo(appointmentNo);
-            return ResponseEntity.status(FOUND).body(new ApiResponse(FeedBackMessage.FOUND, appointment));
+            return ResponseEntity.status(FOUND).body(new ApiResponse(FeedBackMessage.RESOURCE_FOUND, appointment));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }

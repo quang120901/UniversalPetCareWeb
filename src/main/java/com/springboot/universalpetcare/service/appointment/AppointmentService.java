@@ -6,14 +6,18 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.springboot.universalpetcare.enums.AppointmentStatus;
 import com.springboot.universalpetcare.exception.ResourceNotFoundException;
 import com.springboot.universalpetcare.model.Appointment;
+import com.springboot.universalpetcare.model.Pet;
 import com.springboot.universalpetcare.model.User;
 import com.springboot.universalpetcare.repository.AppointmentRepository;
 import com.springboot.universalpetcare.repository.UserRepository;
 import com.springboot.universalpetcare.request.AppointmentUpdateRequest;
+import com.springboot.universalpetcare.request.BookAppointmentRequest;
+import com.springboot.universalpetcare.service.pet.IPetService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,12 +27,21 @@ public class AppointmentService implements IAppointmentService{
 
     private final AppointmentRepository appointmentRepository;
     private final UserRepository userRepository;
+    private final IPetService petService;
 
+    @Transactional 
     @Override
-    public Appointment createAppointment(Appointment appointment, Long senderId, Long recipientId) {
+    public Appointment createAppointment(BookAppointmentRequest request, Long senderId, Long recipientId) {
         Optional<User> sender = userRepository.findById(senderId);
         Optional<User> recipient = userRepository.findById(recipientId);
         if(sender.isPresent() && recipient.isPresent()) {
+
+            Appointment appointment = request.getAppointment();
+            List<Pet> pets = request.getPets();
+            pets.forEach(pet -> pet.setAppointment(appointment));
+            List<Pet> savedPets = petService.savePetsForAppointment(pets);
+            appointment.setPets(savedPets);
+
             appointment.addPatient(sender.get());
             appointment.addVeterinarian(recipient.get());
             appointment.setAppointmentNo();
