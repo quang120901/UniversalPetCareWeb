@@ -31,11 +31,11 @@ import lombok.Setter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private  Long id;
     private String firstName;
     private String lastName;
     private String gender;
-    @Column(name = "mobile_number")
+    @Column(name = "mobile")
     private String phoneNumber;
     private String email;
     private String password;
@@ -43,14 +43,22 @@ public class User {
     private boolean isEnabled;
 
     @CreationTimestamp
-    private LocalDate createdAt;
-    
+    private LocalDate  createdAt;
+
     @Transient
     private String specialization;
 
-    @Transient 
+    @Transient
     List<Appointment> appointments;
 
-    @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Photo photo;
+
+
+    public void removeUserPhoto(){
+        if(this.getPhoto() != null){
+            this.setPhoto(null);
+        }
+    }
+
 }
