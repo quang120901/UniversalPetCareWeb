@@ -1,6 +1,7 @@
 package com.springboot.universalpetcare.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -49,7 +50,10 @@ public class User {
     private String specialization;
 
     @Transient
-    List<Appointment> appointments;
+    private List<Appointment> appointments = new ArrayList<>();
+
+    @Transient 
+    private List<Review> reviews = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Photo photo;
