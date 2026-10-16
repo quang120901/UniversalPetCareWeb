@@ -46,7 +46,7 @@ public class ReviewService implements IReviewService{
         //4. Get the veterinarian from the database
         User veterinarian = userRepository.findById(veterinarianId).orElseThrow(() -> new ResourceNotFoundException(FeedBackMessage.VET_OR_PATIENT_NOT_FOUND));
         //4. Get the patient from the database
-        User patient = userRepository.findById(reviewerId).orElseThrow(() -> new ResourceNotFoundException(FeedBackMessage.RESOURCE_NOT_FOUND));
+        User patient = userRepository.findById(reviewerId).orElseThrow(() -> new ResourceNotFoundException(FeedBackMessage.VET_OR_PATIENT_NOT_FOUND));
         //5. Set both to the review
         review.setVeterinarian(veterinarian);
         review.setPatient(patient);
