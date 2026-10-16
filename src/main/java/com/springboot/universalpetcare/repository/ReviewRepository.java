@@ -1,6 +1,7 @@
 package com.springboot.universalpetcare.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,4 +16,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long>{
     Page<Review> findAllByUserId(@Param ("userId") Long userId, Pageable pageable);
 
     List<Review> findByVeterinarianId(Long veterinarianId);
+
+    Optional<Review> findByVeterinarianIdAndPatientId(Long veterinarianId, Long reviewerId);
 }
