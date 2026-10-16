@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.springboot.universalpetcare.enums.AppointmentStatus;
 import com.springboot.universalpetcare.exception.ResourceNotFoundException;
-import com.springboot.universalpetcare.exception.UserAlreadyExistsException;
+import com.springboot.universalpetcare.exception.AlreadyExistsException;
 import com.springboot.universalpetcare.model.Review;
 import com.springboot.universalpetcare.model.User;
 import com.springboot.universalpetcare.repository.AppointmentRepository;
@@ -28,30 +28,30 @@ public class ReviewService implements IReviewService{
     private final UserRepository userRepository;
 
     @Override
-    public void saveReview(Review review, Long reviewerId, Long veterinarianId) {
+    public Review saveReview(Review review, Long reviewerId, Long veterinarianId) {
         //1. Check if the reviewer is same as the doctor being reviewed
         if(veterinarianId.equals(reviewerId)) {
-            throw new IllegalArgumentException("Veterinarians can not review themselves");
+            throw new IllegalArgumentException(FeedBackMessage.CANNOT_REVIEW);
         }
         //2. Check if the reviewer has previously submitted a review for this doctor
         Optional<Review> existingReview = reviewRepository.findByVeterinarianIdAndPatientId(veterinarianId, reviewerId);
         if(existingReview.isPresent()) {
-            throw new UserAlreadyExistsException("You have already rated this veterinarian, you may edit your previous review");
+            throw new AlreadyExistsException(FeedBackMessage.ALREADY_REVIEWED);
         }
         //3. Check if the reviewer has gotten a completed appointment with this doctor
         boolean hadCompletedAppoinments = appointmentRepository.existsByVeterinarianIdAndPatientIdAndStatus(veterinarianId, reviewerId, AppointmentStatus.COMPLETED);
         if(!hadCompletedAppoinments) {
-            throw new IllegalStateException("Sorry, only patient with has a completed appointment with this veterinarian can leave a review");
+            throw new IllegalStateException(FeedBackMessage.NOT_ALLOWED);
         }
         //4. Get the veterinarian from the database
-        User veterinarian = userRepository.findById(veterinarianId).orElseThrow(() -> new ResourceNotFoundException(FeedBackMessage.RESOURCE_NOT_FOUND));
+        User veterinarian = userRepository.findById(veterinarianId).orElseThrow(() -> new ResourceNotFoundException(FeedBackMessage.VET_OR_PATIENT_NOT_FOUND));
         //4. Get the patient from the database
         User patient = userRepository.findById(reviewerId).orElseThrow(() -> new ResourceNotFoundException(FeedBackMessage.RESOURCE_NOT_FOUND));
         //5. Set both to the review
         review.setVeterinarian(veterinarian);
         review.setPatient(patient);
         //6. Save the review
-        reviewRepository.save(review);
+        return reviewRepository.save(review);
     }
 
     @Transactional 

@@ -54,11 +54,11 @@ public class PhotoService implements IPhotoService {
     @Override
     public void deletePhoto(Long id, Long userId) {
         userRepository.findById(userId).ifPresentOrElse(User ::removeUserPhoto, () ->{
-            throw new ResourceNotFoundException(FeedBackMessage.NOT_FOUND);
+            throw new ResourceNotFoundException(FeedBackMessage.RESOURCE_NOT_FOUND);
         });
         photoRepository.findById(id)
                 .ifPresentOrElse(photoRepository::delete, ()->{
-                    throw new ResourceNotFoundException(FeedBackMessage.NOT_FOUND);
+                    throw new ResourceNotFoundException(FeedBackMessage.RESOURCE_NOT_FOUND);
                 });
 
     }
@@ -74,7 +74,7 @@ public class PhotoService implements IPhotoService {
             photo.setFileName(file.getOriginalFilename());
            return photoRepository.save(photo);
         }
-       throw new ResourceNotFoundException(FeedBackMessage.NOT_FOUND);
+       throw new ResourceNotFoundException(FeedBackMessage.RESOURCE_NOT_FOUND);
     }
 
     @Override

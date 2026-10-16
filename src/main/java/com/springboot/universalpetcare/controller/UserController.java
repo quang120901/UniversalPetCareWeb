@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.universalpetcare.dto.EntityConverter;
 import com.springboot.universalpetcare.dto.UserDto;
 import com.springboot.universalpetcare.exception.ResourceNotFoundException;
-import com.springboot.universalpetcare.exception.UserAlreadyExistsException;
+import com.springboot.universalpetcare.exception.AlreadyExistsException;
 import com.springboot.universalpetcare.model.User;
 import com.springboot.universalpetcare.request.RegistrationRequest;
 import com.springboot.universalpetcare.request.UserUpdateRequest;
@@ -41,7 +41,7 @@ public class UserController {
             User user = userService.register(request);
             UserDto registeredUser = entityConverter.mapEntityToDto(user, UserDto.class);
             return ResponseEntity.ok(new ApiResponse(FeedBackMessage.CREATE_SUCCESS, registeredUser));
-        } catch (UserAlreadyExistsException e) {
+        } catch (AlreadyExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(e.getMessage(), null));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));

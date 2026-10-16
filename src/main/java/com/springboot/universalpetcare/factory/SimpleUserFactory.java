@@ -2,7 +2,7 @@ package com.springboot.universalpetcare.factory;
 
 import org.springframework.stereotype.Component;
 
-import com.springboot.universalpetcare.exception.UserAlreadyExistsException;
+import com.springboot.universalpetcare.exception.AlreadyExistsException;
 import com.springboot.universalpetcare.model.User;
 import com.springboot.universalpetcare.repository.UserRepository;
 import com.springboot.universalpetcare.request.RegistrationRequest;
@@ -20,7 +20,7 @@ public class SimpleUserFactory implements UserFactory {
     @Override
     public User createUser(RegistrationRequest registrationRequest) {
         if(userRepository.existsByEmail(registrationRequest.getEmail())) {
-            throw new UserAlreadyExistsException("User with email " + registrationRequest.getEmail() + " already exists.");
+            throw new AlreadyExistsException("User with email " + registrationRequest.getEmail() + " already exists.");
         }
         switch (registrationRequest.getUserType()) {
             case "VETERINARIAN"->{return veterinarianFactory.createVeterinarian(registrationRequest);
