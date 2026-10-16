@@ -43,5 +43,6 @@ public class UrlMapping {
     public static final String REVIEWS = API+"/reviews";
     public static final String SUBMIT_REVIEW = "/submit-review";
     public static final String GET_USER_REVIEWS = "/user/{userId}/reviews";
+    public static final String UPDATE_REVIEW = "/review/{reviewId}/update";
     /*========================== End Review API ========================== */
 }

@@ -16,6 +16,7 @@ import com.springboot.universalpetcare.model.User;
 import com.springboot.universalpetcare.repository.AppointmentRepository;
 import com.springboot.universalpetcare.repository.ReviewRepository;
 import com.springboot.universalpetcare.repository.UserRepository;
+import com.springboot.universalpetcare.request.ReviewUpdateRequest;
 import com.springboot.universalpetcare.ultis.FeedBackMessage;
 
 import lombok.RequiredArgsConstructor;
@@ -65,15 +66,13 @@ public class ReviewService implements IReviewService{
     }
 
     @Override
-    public void updateReview(Long reviewerId, Review review) {
-        reviewRepository.findById(reviewerId)
-                .ifPresentOrElse(existingReview -> {
+    public Review updateReview(Long reviewerId, ReviewUpdateRequest review) {
+        return reviewRepository.findById(reviewerId)
+                .map(existingReview -> {
                     existingReview.setStars(review.getStars());
                     existingReview.setFeedback(review.getFeedback());
-                    reviewRepository.save(existingReview);
-        }, () -> {
-                throw new ResourceNotFoundException(FeedBackMessage.RESOURCE_FOUND);
-        });
+                    return reviewRepository.save(existingReview);
+                }).orElseThrow(() -> new ResourceNotFoundException(FeedBackMessage.RESOURCE_NOT_FOUND));
     }
 
     @Override

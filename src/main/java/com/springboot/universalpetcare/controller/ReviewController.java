@@ -16,6 +16,7 @@ import static org.springframework.http.HttpStatus.FOUND;
 import com.springboot.universalpetcare.exception.AlreadyExistsException;
 import com.springboot.universalpetcare.exception.ResourceNotFoundException;
 import com.springboot.universalpetcare.model.Review;
+import com.springboot.universalpetcare.request.ReviewUpdateRequest;
 import com.springboot.universalpetcare.respone.ApiResponse;
 import com.springboot.universalpetcare.service.review.IReviewService;
 import com.springboot.universalpetcare.ultis.FeedBackMessage;
@@ -26,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -57,5 +60,16 @@ public class ReviewController {
                                                         @RequestParam int size) {
         Page<Review> reviewPage = reviewService.findAllReviewsByUserId(userId, page, size);
         return ResponseEntity.status(FOUND).body(new ApiResponse(FeedBackMessage.RESOURCE_FOUND, reviewPage));
+    }
+
+    @PutMapping(UrlMapping.UPDATE_REVIEW)
+    public ResponseEntity<ApiResponse> updateReview(@RequestBody ReviewUpdateRequest updateRequest, 
+                                                    @PathVariable Long reviewId) {
+        try {
+            Review updateReview = reviewService.updateReview(reviewId, updateRequest);
+            return ResponseEntity.ok(new ApiResponse(FeedBackMessage.UPDATE_SUCCESS, updateReview));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+        }
     }
 }
