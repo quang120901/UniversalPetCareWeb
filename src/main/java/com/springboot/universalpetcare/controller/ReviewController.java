@@ -1,5 +1,6 @@
 package com.springboot.universalpetcare.controller;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE;
 import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.FOUND;
 
+import com.springboot.universalpetcare.dto.ReviewDto;
 import com.springboot.universalpetcare.exception.AlreadyExistsException;
 import com.springboot.universalpetcare.exception.ResourceNotFoundException;
 import com.springboot.universalpetcare.model.Review;
@@ -37,6 +39,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequestMapping(UrlMapping.REVIEWS)
 @RestController
 public class ReviewController {
+    private final ModelMapper modelMapper;
     private final IReviewService reviewService;
 
     @PostMapping(UrlMapping.SUBMIT_REVIEW)
@@ -44,8 +47,8 @@ public class ReviewController {
                                                 @RequestParam Long reviewerId,
                                                 @RequestParam Long vetId) {
         try {
-            Review savReview = reviewService.saveReview(review, reviewerId, vetId);
-            return ResponseEntity.ok(new ApiResponse(FeedBackMessage.CREATE_SUCCESS, null));
+            Review savedReview = reviewService.saveReview(review, reviewerId, vetId);
+            return ResponseEntity.ok(new ApiResponse(FeedBackMessage.CREATE_SUCCESS, savedReview.getId()));
         } catch (IllegalArgumentException | IllegalStateException e) {
             return ResponseEntity.status(NOT_ACCEPTABLE).body(new ApiResponse(e.getMessage(), null));
         } catch (AlreadyExistsException e) {
@@ -53,14 +56,6 @@ public class ReviewController {
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }
-    }
-
-    @GetMapping(UrlMapping.GET_USER_REVIEWS)
-    public ResponseEntity<ApiResponse> getReviewsByUserID(@PathVariable Long userId, 
-                                                        @RequestParam int page, 
-                                                        @RequestParam int size) {
-        Page<Review> reviewPage = reviewService.findAllReviewsByUserId(userId, page, size);
-        return ResponseEntity.status(FOUND).body(new ApiResponse(FeedBackMessage.RESOURCE_FOUND, reviewPage));
     }
 
     @PutMapping(UrlMapping.UPDATE_REVIEW)
@@ -83,5 +78,20 @@ public class ReviewController {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }
       
+    }
+
+    @GetMapping(UrlMapping.GET_USER_REVIEWS)
+    public ResponseEntity<ApiResponse> getReviewsByUserID(@PathVariable Long userId, 
+                                                        @RequestParam(defaultValue = "0") int page, 
+                                                        @RequestParam(defaultValue = "5") int size) {
+        Page<Review> reviewPage = reviewService.findAllReviewsByUserId(userId, page, size);
+        Page<ReviewDto> reviewDtos = reviewPage.map((element) -> modelMapper.map(element, ReviewDto.class));
+        return ResponseEntity.status(FOUND).body(new ApiResponse(FeedBackMessage.RESOURCE_FOUND, reviewDtos));
+    }
+
+    @GetMapping("/vet/{vetId}/get-average-rating")
+    public ResponseEntity<ApiResponse> getAverageRatingForVet(@PathVariable Long vetId) {
+        double averageRating = reviewService.getAverageRatingForVet(vetId);
+        return ResponseEntity.ok(new ApiResponse(FeedBackMessage.RESOURCE_FOUND, averageRating));
     }
 }
