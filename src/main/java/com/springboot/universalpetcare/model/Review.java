@@ -1,5 +1,7 @@
 package com.springboot.universalpetcare.model;
 
+import java.util.Optional;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,4 +32,12 @@ public class Review {
     @ManyToOne 
     @JoinColumn (name = "reviewer_id")
     private User patient;
+
+    public void removeRelationShip() {
+        Optional.ofNullable(veterinarian)
+                .ifPresent(vet -> vet.getReviews().remove(this));
+        Optional.ofNullable(patient)
+                .ifPresent(pat -> pat.getReviews()
+                    .remove(this));
+    }
 }

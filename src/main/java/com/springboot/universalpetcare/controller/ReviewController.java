@@ -26,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -71,5 +72,16 @@ public class ReviewController {
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }
+    }
+
+    @DeleteMapping(UrlMapping.DELETE_REVIEW)
+    public ResponseEntity<ApiResponse> deleteReview(@PathVariable Long reviewId) {
+        try {
+            reviewService.deleteReview(reviewId);
+            return ResponseEntity.ok(new ApiResponse(FeedBackMessage.DELETE_SUCCESS, null));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+        }
+      
     }
 }

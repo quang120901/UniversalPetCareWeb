@@ -81,4 +81,12 @@ public class ReviewService implements IReviewService{
         return reviewRepository.findAllByUserId(userId, pageRequest);
     }
     
+    @Override 
+    public void deleteReview(Long reviewerId) {
+        reviewRepository.findById(reviewerId)
+                .ifPresentOrElse(Review::removeRelationShip, ()->{
+                    throw new ResourceNotFoundException(FeedBackMessage.RESOURCE_NOT_FOUND);
+                });
+        reviewRepository.deleteById(reviewerId);
+    }
 }
