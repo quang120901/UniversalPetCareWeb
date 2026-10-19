@@ -1,5 +1,7 @@
 package com.springboot.universalpetcare.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.springboot.universalpetcare.enums.AppointmentStatus;
@@ -11,4 +13,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     boolean existsByVeterinarianIdAndPatientIdAndStatus(Long veterinarianId, Long reviewerId,
             AppointmentStatus appointmentStatus);
     
+    List<Appointment> findAllByUserId(Long userId);
 }

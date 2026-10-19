@@ -2,6 +2,7 @@ package com.springboot.universalpetcare.service.appointment;
 
 import java.util.List;
 
+import com.springboot.universalpetcare.dto.AppointmentDto;
 import com.springboot.universalpetcare.model.Appointment;
 import com.springboot.universalpetcare.request.AppointmentUpdateRequest;
 import com.springboot.universalpetcare.request.BookAppointmentRequest;
@@ -14,4 +15,5 @@ public interface IAppointmentService {
     void deleteAppointment(Long id);
     Appointment getAppointmentById(Long id);
     Appointment getAppointmentByNo(String appointmentNo);
+    List<AppointmentDto> getUserAppointments(Long userId);
 }

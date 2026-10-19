@@ -5,9 +5,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.springboot.universalpetcare.dto.AppointmentDto;
+import com.springboot.universalpetcare.dto.EntityConverter;
+import com.springboot.universalpetcare.dto.PetDto;
 import com.springboot.universalpetcare.enums.AppointmentStatus;
 import com.springboot.universalpetcare.exception.ResourceNotFoundException;
 import com.springboot.universalpetcare.model.Appointment;
@@ -28,6 +32,9 @@ public class AppointmentService implements IAppointmentService{
     private final AppointmentRepository appointmentRepository;
     private final UserRepository userRepository;
     private final IPetService petService;
+    private final EntityConverter<Appointment, AppointmentDto> entityConverter;
+    private final EntityConverter<Pet, PetDto> petEntityConverter;
+    private final ModelMapper modelMapper;
 
     @Transactional 
     @Override
@@ -89,4 +96,17 @@ public void deleteAppointment(Long id) {
     public Appointment getAppointmentByNo(String appointmentNo) {
         return appointmentRepository.findByAppointmentNo(appointmentNo);
     } 
+
+    @Override 
+    public List<AppointmentDto> getUserAppointments(Long userId) {
+        List<Appointment> appointments = appointmentRepository.findAllByUserId(userId);
+        return appointments.stream()
+                .map(appointment -> {
+                    AppointmentDto appointmentDto = entityConverter.mapEntityToDto(appointment, AppointmentDto.class);
+                    List<PetDto> petDto = appointment.getPets()
+                            .stream().map(pet -> petEntityConverter.mapEntityToDto(pet, PetDto.class)).toList();
+                    appointmentDto.setPets(petDto);
+                    return appointmentDto;
+                }).toList();
+    }
 }
