@@ -1,6 +1,7 @@
 package com.springboot.universalpetcare.service.appointment;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -22,26 +23,27 @@ import com.springboot.universalpetcare.repository.UserRepository;
 import com.springboot.universalpetcare.request.AppointmentUpdateRequest;
 import com.springboot.universalpetcare.request.BookAppointmentRequest;
 import com.springboot.universalpetcare.service.pet.IPetService;
+import com.springboot.universalpetcare.ultis.FeedBackMessage;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor 
-public class AppointmentService implements IAppointmentService{
-
+@RequiredArgsConstructor
+public class AppointmentService implements IAppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final UserRepository userRepository;
     private final IPetService petService;
     private final EntityConverter<Appointment, AppointmentDto> entityConverter;
     private final EntityConverter<Pet, PetDto> petEntityConverter;
-    private final ModelMapper modelMapper;
 
-    @Transactional 
+
+
+    @Transactional
     @Override
     public Appointment createAppointment(BookAppointmentRequest request, Long senderId, Long recipientId) {
         Optional<User> sender = userRepository.findById(senderId);
         Optional<User> recipient = userRepository.findById(recipientId);
-        if(sender.isPresent() && recipient.isPresent()) {
+        if (sender.isPresent() && recipient.isPresent()) {
 
             Appointment appointment = request.getAppointment();
             List<Pet> pets = request.getPets();
@@ -55,7 +57,7 @@ public class AppointmentService implements IAppointmentService{
             appointment.setStatus(AppointmentStatus.WAITING_FOR_APPROVAL);
             return appointmentRepository.save(appointment);
         }
-        throw new ResourceNotFoundException("sender or recipient not found");
+        throw new ResourceNotFoundException(FeedBackMessage.SENDER_RECIPIENT_NOT_FOUND);
     }
 
     @Override
@@ -66,47 +68,47 @@ public class AppointmentService implements IAppointmentService{
     @Override
     public Appointment updateAppointment(Long id, AppointmentUpdateRequest request) {
         Appointment existingAppointment = getAppointmentById(id);
-        if(!Objects.equals(existingAppointment.getStatus(), AppointmentStatus.WAITING_FOR_APPROVAL)) {
-            throw new IllegalStateException("Sorry, this appointment can no longer be updated");
+        if (!Objects.equals(existingAppointment.getStatus(), AppointmentStatus.WAITING_FOR_APPROVAL)) {
+            throw new IllegalStateException(FeedBackMessage.ALREADY_APPROVED);
         }
-        existingAppointment.setAppointmentDate(LocalDate.parse(request.getAppoinmentDate()));
-        existingAppointment.setAppointmentTime(LocalDate.parse(request.getAppoinmentTime()));
+        existingAppointment.setAppointmentDate(LocalDate.parse(request.getAppointmentDate()));
+        existingAppointment.setAppointmentTime(LocalTime.parse(request.getAppointmentTime()));
         existingAppointment.setReason(request.getReason());
         return appointmentRepository.save(existingAppointment);
     }
 
     @Override
-public void deleteAppointment(Long id) {
-    appointmentRepository.findById(id)
-            .ifPresentOrElse(
-                appointment -> appointmentRepository.delete(appointment), 
-                () -> {
-                    throw new ResourceNotFoundException("appointment not found");
-                }
-            );
-}
+    public void deleteAppointment(Long id) {
+        appointmentRepository.findById(id)
+                .ifPresentOrElse(appointmentRepository::delete, () -> {
+                    throw new ResourceNotFoundException(FeedBackMessage.RESOURCE_NOT_FOUND);
+                });
+
+    }
 
     @Override
     public Appointment getAppointmentById(Long id) {
         return appointmentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("appointment not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(FeedBackMessage.RESOURCE_NOT_FOUND));
     }
 
     @Override
     public Appointment getAppointmentByNo(String appointmentNo) {
         return appointmentRepository.findByAppointmentNo(appointmentNo);
-    } 
+    }
 
-    @Override 
+    @Override
     public List<AppointmentDto> getUserAppointments(Long userId) {
         List<Appointment> appointments = appointmentRepository.findAllByUserId(userId);
         return appointments.stream()
                 .map(appointment -> {
                     AppointmentDto appointmentDto = entityConverter.mapEntityToDto(appointment, AppointmentDto.class);
                     List<PetDto> petDto = appointment.getPets()
-                            .stream().map(pet -> petEntityConverter.mapEntityToDto(pet, PetDto.class)).toList();
+                            .stream()
+                            .map(pet -> petEntityConverter.mapEntityToDto(pet, PetDto.class)).toList();
                     appointmentDto.setPets(petDto);
                     return appointmentDto;
                 }).toList();
     }
+
 }

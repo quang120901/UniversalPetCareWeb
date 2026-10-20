@@ -11,9 +11,10 @@ import org.springframework.data.repository.query.Param;
 
 import com.springboot.universalpetcare.model.Review;
 
-public interface ReviewRepository extends JpaRepository<Review, Long>{
-    @Query ("SELECT r FROM Review r WHERE r.patient.id =:userId OR r.veterinarian.id =:userId ")
-    Page<Review> findAllByUserId(@Param ("userId") Long userId, Pageable pageable);
+public interface ReviewRepository extends JpaRepository<Review, Long> {
+
+    @Query("SELECT r FROM Review r WHERE r.patient.id =:userId OR r.veterinarian.id =:userId ")
+    Page<Review> findAllByUserId(@Param("userId") Long userId, Pageable pageable);
 
     List<Review> findByVeterinarianId(Long veterinarianId);
 

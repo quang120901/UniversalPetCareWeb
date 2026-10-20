@@ -1,6 +1,7 @@
 package com.springboot.universalpetcare.model;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -27,29 +28,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity 
-@Getter 
-@Setter 
-@AllArgsConstructor 
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","patient","veterinarian"})
+@JsonIgnoreProperties({"patient","veterinarian"})
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String reason;
-
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate appointmentDate;
-    
     @JsonFormat(pattern = "HH:mm")
-    private LocalDate appointmentTime;
+    private LocalTime appointmentTime;
     private String appointmentNo;
-
-    @CreationTimestamp 
+     @CreationTimestamp
     private LocalDate createdAt;
-    
-    @Enumerated (EnumType.STRING)
+
+    @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
 
     @JoinColumn(name = "sender")
@@ -59,8 +57,8 @@ public class Appointment {
     @JoinColumn(name = "recipient")
     @ManyToOne(fetch = FetchType.LAZY)
     private User veterinarian;
-    
-    @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "appointment",cascade = CascadeType.ALL)
     List<Pet> pets = new ArrayList<>();
 
 
@@ -87,7 +85,7 @@ public class Appointment {
     }
 
     public void setAppointmentNo() {
-        this.appointmentNo = String.valueOf(new Random().nextLong()).substring(1, 11);
+        this.appointmentNo = String.valueOf(new Random().nextLong()).substring(1,11);
     }
 
 }

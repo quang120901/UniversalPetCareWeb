@@ -7,10 +7,10 @@ public class ReviewDto {
     private Long id;
     private int stars;
     private String feedback;
-    private Long vetId;
-    private String vetName;
-    private Long reviewerId;
-    private String reviewerName;
-    private byte[] reviewerImage;
-    private byte[] vetImage;
+    private Long veterinarianId;
+    private String veterinarianName;
+    private Long patientId;
+    private String patientName;
+    private byte[] patientImage;
+    private byte[] veterinarianImage;
 }
