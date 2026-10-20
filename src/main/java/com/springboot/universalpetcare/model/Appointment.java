@@ -25,14 +25,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @JsonIgnoreProperties({"patient","veterinarian"})
 public class Appointment {
     @Id
@@ -58,8 +56,12 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.LAZY)
     private User veterinarian;
 
-    @OneToMany(mappedBy = "appointment",cascade = CascadeType.ALL)
-    List<Pet> pets = new ArrayList<>();
+    @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)
+    List<Pet> pets;
+
+    public Appointment() {
+        this.pets = new ArrayList<>();
+    }
 
 
 

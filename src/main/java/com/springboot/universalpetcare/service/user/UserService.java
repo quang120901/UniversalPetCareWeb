@@ -1,21 +1,16 @@
 package com.springboot.universalpetcare.service.user;
 
 import com.springboot.universalpetcare.service.photo.PhotoService;
-import com.springboot.universalpetcare.service.review.IReviewService;
 import com.springboot.universalpetcare.service.review.ReviewService;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.management.RuntimeErrorException;
-
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.springboot.universalpetcare.factory.UserFactory;
-import com.springboot.universalpetcare.factory.VeterinarianFactory;
 import com.springboot.universalpetcare.model.Review;
 import com.springboot.universalpetcare.model.User;
 import com.springboot.universalpetcare.repository.UserRepository;
@@ -31,7 +26,6 @@ import com.springboot.universalpetcare.dto.ReviewDto;
 import com.springboot.universalpetcare.dto.UserDto;
 import com.springboot.universalpetcare.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 
 @Service
 @RequiredArgsConstructor
