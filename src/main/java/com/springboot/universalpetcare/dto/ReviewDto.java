@@ -5,7 +5,7 @@ import lombok.Data;
 @Data 
 public class ReviewDto {
     private Long id;
-    private String stars;
+    private int stars;
     private String feedback;
     private Long vetId;
     private String vetName;
