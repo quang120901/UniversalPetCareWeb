@@ -37,7 +37,7 @@ const Home = () => {
 
                 <Col md={6} className="mb-3">
                     <Card>
-                        <Card.Img variant="top" src={d5} alt="About Us" className="hero-image"/>
+                        <Card.Img variant="top" src={vett} alt="About Us" className="hero-image"/>
                         <Card.Body>
                             <h2 className="text-info">Our Services</h2>
                             <Card.Title>What we do</Card.Title>
