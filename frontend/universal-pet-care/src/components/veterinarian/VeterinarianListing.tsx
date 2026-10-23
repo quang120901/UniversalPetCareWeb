@@ -10,7 +10,7 @@ const VeterinarianListing = () => {
     useEffect(() => {
         getVeterinarians()
             .then((data) => {
-                setVeterinarians(data);
+                setVeterinarians(data.data);
             })
             .catch((error) => {
                 setErrorMessage(error.message);
