@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import VeterinarianCard from "./VeterinarianCard";
+import { getVeterinarians } from "./VeterinarianService";
 
 const VeterinarianListing = () => {
     const [veterinarians, setVeterinarians] = useState([]);
