@@ -46,4 +46,10 @@ public class UrlMapping {
     public static final String UPDATE_REVIEW = "/review/{reviewId}/update";
     public static final String DELETE_REVIEW = "/review/{reviewId}/delete";
     /*========================== End Review API ========================== */
+
+
+    /*========================== Start Veterinarian API ========================== */
+    public static final String VETERINARIANS = API+"/veterinarians";
+    public static final String GET_ALL_VETERINARIANS = "/get-all-veterinarians";
+    /*========================== End Veterinarian API ========================== */
 }

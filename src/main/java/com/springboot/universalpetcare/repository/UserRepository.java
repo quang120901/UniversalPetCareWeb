@@ -1,5 +1,6 @@
 package com.springboot.universalpetcare.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.springboot.universalpetcare.model.User;
+import com.springboot.universalpetcare.model.Veterinarian;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(String email);
@@ -20,6 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
                    @Param("lastName") String lastName,
                    @Param("gender") String gender,
                    @Param("phoneNumber") String phoneNumber);
+    List<Veterinarian> findAllByUserType(String string);
 
 
 }
