@@ -22,4 +22,8 @@ public class UserDto {
     private long photoId;
     private byte[] photo;
     private double averageRating;
+    public void setTotalReviewers(Long totalReviewer) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setTotalReviewers'");
+    }
 }
