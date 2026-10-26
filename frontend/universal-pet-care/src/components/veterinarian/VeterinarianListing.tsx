@@ -22,27 +22,23 @@ const VeterinarianListing = () => {
     }
 
     return (
-        <Row>
-            <h6>Meet Our Veterinarians</h6>
-            <Col>
-                <Container>
-                    <Row>
-                        <h5>Seacrch</h5>
-                    </Row>
-                </Container>
-            </Col>
+    <Container>
+      <Row className='justify-content-center'>
+        <h2 className='text-center mb-4 mt-4'>Meet Our Veterinarians</h2>
+      </Row>
 
-            <Col>
-                <Container>
-                    <Row>
-                        {veterinarians.map((vet, index) => (
-                            <VeterinarianCard key={index} vet={vet} />
-                        ))}
-                    </Row>
-                </Container>
-            </Col>
-        </Row>
-    );
+      <Row className='justify-content-center'>
+        <Col md={4}>
+          <h5>Search goes here</h5>
+        </Col>
+        <Col md={7}>
+          {veterinarians.map((vet, index) => (
+            <VeterinarianCard key={index} vet={vet} />
+          ))}
+        </Col>
+      </Row>
+    </Container>
+  );
 };
 
 export default VeterinarianListing;
