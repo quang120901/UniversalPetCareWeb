@@ -1,5 +1,6 @@
 import React, { use, useState } from "react";
 import format from "date-fns";
+import UseMessageAlerts from "../hooks/UseMessageAlerts";
 
 const VeterinarianSearch = ({onSearchResult}) => {
     const [searchQuery, setSearchQuery] = useState({
@@ -8,7 +9,11 @@ const VeterinarianSearch = ({onSearchResult}) => {
         specialization: "",
     });
     const [showDateTime, setShowDateTime] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
+    const {
+        errorMessage,
+        setErrorMessage,
+        showErrorAlert,
+        setShowErrorAlert } = UseMessageAlerts();
 
     const handleInputChange = (e) => {
         setSearchQuery({
@@ -60,9 +65,21 @@ const VeterinarianSearch = ({onSearchResult}) => {
         try {
             const response = await findAvailableVaterinarians(searchParams)
             onSearchResult(response.data)
+            setShowErrorAlert(false)
         } catch (error) {
-
+            setErrorMessage(error.message)
+            setShowErrorAlert(true)
         }
+    }
+
+    const handleClearSearch = () => {
+        setSearchQuery({
+            date: null,
+            time: null,
+            specialization : ""
+        })
+        setShowDateTime(false)
+        onSearchResult([])
     }
 
     return (
