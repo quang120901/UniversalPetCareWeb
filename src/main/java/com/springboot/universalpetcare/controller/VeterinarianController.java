@@ -17,7 +17,6 @@ import com.springboot.universalpetcare.ultis.FeedBackMessage;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.springboot.universalpetcare.ultis.UrlMapping;
 
