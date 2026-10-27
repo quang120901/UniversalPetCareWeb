@@ -51,5 +51,6 @@ public class UrlMapping {
     /*========================== Start Veterinarian API ========================== */
     public static final String VETERINARIANS = API+"/veterinarians";
     public static final String GET_ALL_VETERINARIANS = "/get-all-veterinarians";
+    public static final String SEARCH_VERINARIAN_FOR_APPOINTMENT = "/search-veterinarian";
     /*========================== End Veterinarian API ========================== */
 }

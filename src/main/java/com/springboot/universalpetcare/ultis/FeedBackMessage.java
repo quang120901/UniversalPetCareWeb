@@ -14,4 +14,5 @@ public class FeedBackMessage {
     public static final String ALREADY_REVIEWED = "You already have rated this veterinarian, you may edit your previous review";
     public static final String CANNOT_REVIEW = "Veterinarians can not review themselves";
     public static final String VET_OR_PATIENT_NOT_FOUND = "Veterinarian or Patient not found";
+    public static final String NO_VETS_AVAILABLE = "No veterinarians available for the requested date and time";
 }
