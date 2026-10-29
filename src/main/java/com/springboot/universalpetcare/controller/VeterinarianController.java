@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.universalpetcare.dto.UserDto;
+import com.springboot.universalpetcare.exception.ResourceNotFoundException;
 import com.springboot.universalpetcare.respone.ApiResponse;
 import com.springboot.universalpetcare.service.veterinarian.IVeterinarianService;
 import com.springboot.universalpetcare.ultis.FeedBackMessage;
@@ -38,10 +39,16 @@ public class VeterinarianController {
             @RequestParam(required = false) LocalDate date,
             @RequestParam(required = false) LocalTime time,
             @RequestParam String specialization) {
-        List<UserDto> availableVeterinarians = veterinarianService.findAvailableVetsForAppointment(specialization, date, time);
-        if(availableVeterinarians.isEmpty()) {
+                
+        try {
+            List<UserDto> availableVeterinarians = veterinarianService.findAvailableVetsForAppointment(specialization, date, time);
+            if(availableVeterinarians.isEmpty()) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(FeedBackMessage.NO_VETS_AVAILABLE, null));
         }
         return ResponseEntity.ok(new ApiResponse(FeedBackMessage.RESOURCE_FOUND, availableVeterinarians));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+        }
+        
     }
 }

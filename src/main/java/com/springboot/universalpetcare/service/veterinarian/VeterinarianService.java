@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.springboot.universalpetcare.dto.EntityConverter;
 import com.springboot.universalpetcare.dto.UserDto;
+import com.springboot.universalpetcare.exception.ResourceNotFoundException;
 import com.springboot.universalpetcare.model.Appointment;
 import com.springboot.universalpetcare.model.Veterinarian;
 import com.springboot.universalpetcare.repository.ReviewRepository;
@@ -49,6 +50,9 @@ public class VeterinarianService implements IVeterinarianService{
 
     @Override 
     public List<Veterinarian> getVeterinariansBySpecialization(String specialization) {
+        if(!veterinarianRepository.existsBySpecialization(specialization)) {
+            throw new ResourceNotFoundException("No veterinarian found with " + specialization + " in the system");
+        }
         return veterinarianRepository.findBySpecialization(specialization);
     }
 
