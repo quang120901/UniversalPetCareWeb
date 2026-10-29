@@ -1,90 +1,74 @@
-import React, { use, useState } from "react";
-import format from "date-fns";
+import React, { useState } from "react";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
-import { Col, Form, Row } from "react-bootstrap";
+import { Form, Row, Col, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
+import AlertMessage from "../common/AlertMessage";
+import { findAvailableVeterinarians } from "./VeterinarianService";
 
-const VeterinarianSearch = ({onSearchResult}) => {
-    const [searchQuery, setSearchQuery] = useState({
-        date: null,
-        time: null,
-        specialization: "",
+const VeterinarianSearch = ({ onSearchResult }) => {
+  const [searchQuery, setSearchQuery] = useState({
+    date: null,
+    time: null,
+    specialization: "",
+  });
+  const [showDateTime, setShowDateTime] = useState(false);
+  const { errorMessage, setErrorMessage, showErrorAlert, setShowErrorAlert } =
+    UseMessageAlerts();
+
+  const handleInputchange = (e) => {
+    setSearchQuery({ ...searchQuery, [e.target.name]: e.target.value });
+  };
+
+  const handleDateChange = (date) => {
+    setSearchQuery({ ...searchQuery, date });
+  };
+  const handleTimeChange = (time) => {
+    setSearchQuery({ ...searchQuery, time });
+  };
+
+  const handleDateTimeToggle = (e) => {
+    const isChecked = e.target.checked;
+    setShowDateTime(isChecked);
+    if (isChecked) {
+      setSearchQuery({ ...searchQuery, date: null, time: null });
+    }
+  };
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    let searchParams = { specialization: searchQuery.specialization };
+
+    if (searchQuery.date) {
+      const formattedDate = format(searchQuery.date, "yyyy-MM-dd");
+      searchParams.date = formattedDate;
+    }
+    if (searchQuery.time) {
+      const formattedTime = format(searchQuery.time, "HH:mm");
+      searchParams.time = formattedTime;
+    }
+    try {
+      const response = await findAvailableVeterinarians(searchParams);
+      onSearchResult(response.data);
+      setShowErrorAlert(false);
+    } catch (error) {
+      setErrorMessage(error.response.data.message);
+      setShowErrorAlert(true);
+    }
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery({
+      date: null,
+      time: null,
+      specialization: "",
     });
-    const [showDateTime, setShowDateTime] = useState(false);
-    const {
-        errorMessage,
-        setErrorMessage,
-        showErrorAlert,
-        setShowErrorAlert } = UseMessageAlerts();
+    setShowDateTime(false);
+    onSearchResult(null);
+  };
 
-    const handleInputChange = (e) => {
-        setSearchQuery({
-            ...searchQuery,
-            [e.target.name]: e.target.value
-        });
-    };
-
-    const handleDateChange = (date) => {
-        setSearchQuery({
-            ...searchQuery,
-            date
-        });
-    };
-
-    const handleTimeChange = (time) => {
-        setSearchQuery({
-            ...searchQuery,
-            time,
-        });
-    };
-
-    const handleDateTimeToggle = (e) => {
-        const isChecked = e.target.checked
-        setShowDateTime(isChecked)
-        if (!isChecked) {
-            setSearchQuery({
-                ...searchQuery,
-                date: null,
-                time: null,
-            })
-        }
-    }
-
-    const handleSearch = async (e) => {
-        e.preventDefault()
-        let searchParams = { specialization : searchQuery.specialization }
-
-        if(searchQuery.date) {
-            const formattedDate = format(searchQuery.date, "yyyy-MM-dd")
-            searchParams.date = formattedDate
-        }
-
-        if(searchQuery.time) {
-            const formattedTime = format(searchQuery.time, "HH:mm")
-            searchParams.time = formattedTime
-        }
-
-        try {
-            const response = await findAvailableVaterinarians(searchParams)
-            onSearchResult(response.data)
-            setShowErrorAlert(false)
-        } catch (error) {
-            setErrorMessage(error.message)
-            setShowErrorAlert(true)
-        }
-    }
-
-    const handleClearSearch = () => {
-        setSearchQuery({
-            date: null,
-            time: null,
-            specialization : ""
-        })
-        setShowDateTime(false)
-        onSearchResult([])
-    }
-
-    return (
+  return (
     <section className='stickyFormContainer'>
       <h3>Find a Veterinarian</h3>
       <Form onSubmit={handleSearch}>
@@ -105,7 +89,7 @@ const VeterinarianSearch = ({onSearchResult}) => {
         <fieldset>
           <Row className='mb-3'>
             <Col>
-              <Form.Group className='mb-3'>
+              <Form.Group className='mb-3 mt-3'>
                 <Form.Check
                   type='checkbox'
                   label='Include Date and Time Availabilty'
@@ -169,6 +153,5 @@ const VeterinarianSearch = ({onSearchResult}) => {
     </section>
   );
 };
-
 
 export default VeterinarianSearch;
