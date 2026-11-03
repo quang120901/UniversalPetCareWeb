@@ -10,6 +10,10 @@ const AddItemModal = ({show, handleClose, handleSave, itemLabel}) => {
         handleClose()
     }
 
+    const handleInputChange = () => {
+        setItemValue(e.target.value);
+    }
+
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -23,9 +27,7 @@ const AddItemModal = ({show, handleClose, handleSave, itemLabel}) => {
                             type="text"
                             placeholder={`Enter ${itemLabel.toLowerCase()} Name`}
                             value={itemValue}
-                            onChange={(e) => setItemValue(e.target.value)}
-                        >
-                        </Form.Control>
+                            onChange={handleInputChange}/>
                     </Form.Group>
                 </Form>
 
