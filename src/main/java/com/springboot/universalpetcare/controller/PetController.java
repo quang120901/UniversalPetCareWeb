@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 
-
+@CrossOrigin ("http://localhost:5174")
 @RestController 
 @RequestMapping (UrlMapping.PETS)
 @RequiredArgsConstructor 
