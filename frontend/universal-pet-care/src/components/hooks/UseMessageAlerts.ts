@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAlertWithTimeout } from "../ultis/utilities";
+import { useAlertWithTimeout } from "../utils/utilities";
 
 const UseMessageAlerts = () => {
 const [successMessage, setSuccessMessage] = useState("");

@@ -1,4 +1,4 @@
-import { api } from "../ultis/api";
+import { api } from "../utils/api";
 
 export async function bookAppointment(senderId, recipientId, appointmentRequest) {
     try {
