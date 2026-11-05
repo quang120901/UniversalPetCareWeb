@@ -66,7 +66,7 @@ public class UserController {
     public ResponseEntity<ApiResponse> findById(@PathVariable Long userId) {
         try {
             UserDto userDto = userService.getUserWithDetails(userId);
-            return ResponseEntity.status(HttpStatus.FOUND).body(new ApiResponse(FeedBackMessage.RESOURCE_FOUND, userDto));
+            return ResponseEntity.ok(new ApiResponse(FeedBackMessage.RESOURCE_FOUND, userDto));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         } catch (Exception e) {
