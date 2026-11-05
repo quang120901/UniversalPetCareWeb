@@ -34,3 +34,9 @@ export const useAlertWithTimeout = (
   const formattedTime = format(time, "HH:mm");
   return { formattedDate, formattedTime };
 };
+
+export const UserType = {
+  PATIENT: "PATIENT",
+  VET : "VET",
+}
+
