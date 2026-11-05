@@ -16,6 +16,7 @@ import com.springboot.universalpetcare.ultis.FeedBackMessage;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import com.springboot.universalpetcare.ultis.UrlMapping;
 
-
+@CrossOrigin ("http://localhost:5174")
 @RestController 
 @RequiredArgsConstructor 
 @RequestMapping(UrlMapping.APPOINTMENTS)
