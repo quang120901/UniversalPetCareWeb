@@ -19,13 +19,17 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 
+@ToString
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor 
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     @Id
@@ -43,23 +47,14 @@ public class User {
 
     @CreationTimestamp
     private LocalDate  createdAt;
-
     @Transient
     private String specialization;
-
     @Transient
-    private List<Appointment> appointments;
-
-    @Transient 
-    private List<Review> reviews;
-
+   private List<Appointment> appointments = new ArrayList<>();
+   @Transient
+   private List<Review> reviews = new ArrayList<>();
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Photo photo;
-
-    public User() {
-        this.appointments = new ArrayList<>();
-        this.reviews = new ArrayList<>();
-    }
 
 
     public void removeUserPhoto(){
@@ -69,3 +64,4 @@ public class User {
     }
 
 }
+
