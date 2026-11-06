@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.springboot.universalpetcare.factory.UserFactory;
 import com.springboot.universalpetcare.model.Review;
 import com.springboot.universalpetcare.model.User;
+import com.springboot.universalpetcare.repository.ReviewRepository;
 import com.springboot.universalpetcare.repository.UserRepository;
 import com.springboot.universalpetcare.repository.VeterinarianRepository;
 import com.springboot.universalpetcare.request.RegistrationRequest;
@@ -38,6 +39,7 @@ public class UserService implements IUserService {
     private final IPetService petService;
     private final PhotoService photoService;
     private final ReviewService reviewService;
+    private final ReviewRepository reviewRepository;
 
 
     @Override
@@ -79,8 +81,13 @@ public class UserService implements IUserService {
     public UserDto getUserWithDetails(Long userId) throws SQLException {
         //1. get the user
         User user = findById(userId);
+        System.out.println("================= The user is ========================= " + user);
         //2. convert the user to a userDto
         UserDto userDto = entityConverter.mapEntityToDto(user, UserDto.class);
+
+        userDto.setTotalReviewers(reviewRepository.countByVeterinarianId(userId));
+
+
         //3. get user appointments ( users ( patient and a vet))
         setUserAppointment(userDto);
         //.4 get users photo
@@ -108,6 +115,7 @@ public class UserService implements IUserService {
                 .map(this::mapReviewToDto).toList();
          if(!reviewDto.isEmpty()) {
              double averageRating = reviewService.getAverageRatingForVet(userId);
+             userDto.setAverageRating(averageRating);
          }
          userDto.setReviews(reviewDto);
     }
