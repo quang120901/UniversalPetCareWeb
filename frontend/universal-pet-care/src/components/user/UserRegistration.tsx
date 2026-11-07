@@ -95,6 +95,26 @@ const UserRegistration = () => {
                                         </Col>
                                     </Row>
                                 </fieldset>
+
+                                {/* Gender Selector */}
+                                <Form.Group as={Row} controlId="gender" className="mb-3">
+                                    <Col>
+                                        <Form.Label>Gender</Form.Label>
+                                        <Form.Control
+                                            as="select"
+                                            name="gender"
+                                            required
+                                            value={user.gender}
+                                            onChange={handleInputChange}>
+                                                <option value="">...select gender...</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Others">Others</option>
+                                        </Form.Control>
+                                    </Col>
+                                </Form.Group>
+
+                                
                             </Card.Body>
                         </Card>
                     </Form>
