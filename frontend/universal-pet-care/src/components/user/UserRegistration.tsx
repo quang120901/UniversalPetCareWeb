@@ -139,6 +139,21 @@ const UserRegistration = () => {
                                         </Col>
                                     </Row>
                                 </fieldset>
+
+                                {/* Password */}
+                                <Form.Group as={Row} controlId="password" className="mb-3">
+                                <Col>
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        name="password"
+                                        required
+                                        placeholder="...set your password..."
+                                        value={user.password}
+                                        onChange={handleInputChange}
+                                    />
+                                </Col>
+                                </Form.Group>
                             </Card.Body>
                         </Card>
                     </Form>
