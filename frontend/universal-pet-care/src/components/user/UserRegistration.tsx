@@ -114,7 +114,31 @@ const UserRegistration = () => {
                                     </Col>
                                 </Form.Group>
 
-                                
+                                <fieldset>
+                                    <legend>Contact Information</legend>
+                                    <Row>
+                                        <Col sm={6} className="mb-2 mb-sm-0">
+                                            <Form.Control
+                                                type="email"
+                                                name="email"
+                                                required
+                                                placeholder="...email address..."
+                                                value={user.email}
+                                                onChange={handleInputChange}
+                                            />
+                                        </Col>
+                                        <Col sm={6}>
+                                            <Form.Control
+                                                type="text"
+                                                name="phoneNumber"
+                                                required
+                                                placeholder="mobile phone number"
+                                                value={user.phoneNumber}
+                                                onChange={handleInputChange}
+                                            />
+                                        </Col>
+                                    </Row>
+                                </fieldset>
                             </Card.Body>
                         </Card>
                     </Form>
