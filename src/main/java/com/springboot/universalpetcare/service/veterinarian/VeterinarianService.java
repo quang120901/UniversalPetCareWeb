@@ -23,38 +23,46 @@ import lombok.RequiredArgsConstructor;
 
 @Service 
 @RequiredArgsConstructor 
-public class VeterinarianService implements IVeterinarianService{
-    private final AppointmentRepository appointmentRepository;
+public class VeterinarianService implements IVeterinarianService  {
     private final VeterinarianRepository veterinarianRepository;
     private final EntityConverter<Veterinarian, UserDto> entityConverter;
     private final ReviewService reviewService;
-    private final PhotoService photoService;
     private final ReviewRepository reviewRepository;
+    private final PhotoService photoService;
     private final UserRepository userRepository;
+    private final AppointmentRepository appointmentRepository;
+
+
+    @Override
+    public List<UserDto> getAllVeterinariansWithDetails(){
+           List<Veterinarian> veterinarians = userRepository.findAllByUserType("VET");
+           return veterinarians.stream()
+                   .map(this ::mapVeterinarianToUserDto)
+                   .toList();
+       }
 
     @Override 
-    public List<UserDto> getAllVeterinariansWithDetails() {
-        List<Veterinarian> veterinarians = userRepository.findAllByUserType("VET");
-        return veterinarians.stream()
-            .map(this::mapVeterinarianToUserDto)
-            .toList();
+    public List<String> getSpecializations() {
+        return veterinarianRepository.getSpecializations();
     }
 
-    @Override 
-    public List<UserDto> findAvailableVetsForAppointment(String specialization, LocalDate date, LocalTime time) {
+    @Override
+    public List<UserDto> findAvailableVetsForAppointment(String specialization, LocalDate date, LocalTime time){
         List<Veterinarian> filteredVets = getAvailableVeterinarians(specialization, date, time);
-        return filteredVets.stream()
-                .map(this :: mapVeterinarianToUserDto)
+        return  filteredVets.stream()
+                .map(this ::mapVeterinarianToUserDto)
                 .toList();
     }
 
-    @Override 
+    @Override
     public List<Veterinarian> getVeterinariansBySpecialization(String specialization) {
-        if(!veterinarianRepository.existsBySpecialization(specialization)) {
-            throw new ResourceNotFoundException("No veterinarian found with " + specialization + " in the system");
+        if(!veterinarianRepository.existsBySpecialization(specialization)){
+            throw new ResourceNotFoundException("No veterinarian found with" +specialization +" in the system");
         }
         return veterinarianRepository.findBySpecialization(specialization);
+
     }
+
 
     private UserDto mapVeterinarianToUserDto(Veterinarian veterinarian) {
         UserDto userDto = entityConverter.mapEntityToDto(veterinarian, UserDto.class);
@@ -62,18 +70,20 @@ public class VeterinarianService implements IVeterinarianService{
         Long totalReviewer = reviewRepository.countByVeterinarianId(veterinarian.getId());
         userDto.setAverageRating(averageRating);
         userDto.setTotalReviewers(totalReviewer);
-        if(veterinarian.getPhoto() != null) {
+        if(veterinarian.getPhoto() != null){
             try {
                 byte[] photoBytes = photoService.getImageData(veterinarian.getPhoto().getId());
                 userDto.setPhoto(photoBytes);
-            } catch (SQLException e) {
+            } catch (SQLException e){
                 throw new RuntimeException(e.getMessage());
             }
         }
+
         return userDto;
     }
 
-    private List<Veterinarian> getAvailableVeterinarians(String specialization, LocalDate date, LocalTime time) {
+
+    private List<Veterinarian> getAvailableVeterinarians(String specialization, LocalDate date, LocalTime time){
         List<Veterinarian> veterinarians = getVeterinariansBySpecialization(specialization);
         return veterinarians.stream()
                 .filter(vet -> isVetAvailable(vet, date, time))
@@ -81,21 +91,23 @@ public class VeterinarianService implements IVeterinarianService{
 
     }
 
-    private boolean isVetAvailable(Veterinarian veterinarian, LocalDate requestedDate, LocalTime requestedTime) {
-        if(requestedDate != null && requestedTime != null) {
-            LocalTime requestedEndTime = requestedTime.plusHours(2);
-            return appointmentRepository.findByVeterinarianAndAppointmentDate(veterinarian, requestedDate)
-                .stream()
-                .noneMatch(existingAppointment -> doesAppointmentOverLap(existingAppointment, requestedTime, requestedEndTime));
-        }
-        return true;
-    }
+      private boolean isVetAvailable(Veterinarian veterinarian, LocalDate requestedDate, LocalTime requestedTime){
+          if(requestedDate != null && requestedTime != null){
+              LocalTime requestedEndTime = requestedTime.plusHours(2);
+              return appointmentRepository.findByVeterinarianAndAppointmentDate(veterinarian, requestedDate)
+                      .stream()
+                      .noneMatch(existingAppointment -> doesAppointmentOverLap(existingAppointment, requestedTime, requestedEndTime));
+          }
+          return true;
+      }
 
-    private boolean doesAppointmentOverLap(Appointment existingAppointment, LocalTime requestedStartTime, LocalTime requestedEbdTime) {
+    private boolean doesAppointmentOverLap(Appointment existingAppointment, LocalTime requestedStartTime, LocalTime requestedEndTime){
         LocalTime existingStartTime = existingAppointment.getAppointmentTime();
         LocalTime existingEndTime = existingStartTime.plusHours(2);
         LocalTime unavailableStartTime = existingStartTime.minusHours(1);
         LocalTime unavailableEndTime = existingEndTime.plusMinutes(170);
-        return !requestedStartTime.isBefore(unavailableStartTime) && !requestedEbdTime.isAfter(unavailableEndTime);
+        return !requestedStartTime.isBefore(unavailableStartTime) && !requestedEndTime.isAfter(unavailableEndTime);
     }
+
+
 }
