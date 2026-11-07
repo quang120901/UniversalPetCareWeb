@@ -10,6 +10,8 @@ import com.springboot.universalpetcare.model.Veterinarian;
 public interface IVeterinarianService {
     List<UserDto> getAllVeterinariansWithDetails();
 
+    List<String> getSpecializations();
+
     List<UserDto> findAvailableVetsForAppointment(String specialization, LocalDate date, LocalTime time);
 
     List<Veterinarian> getVeterinariansBySpecialization(String specialization);
