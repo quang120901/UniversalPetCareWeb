@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
-import { Card, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import ProcessSpinner from "../common/ProcessSpinner";
 
 const UserRegistration = () => {
     const [user, setUser] = useState({
@@ -181,7 +182,27 @@ const UserRegistration = () => {
                                     </Form.Group>
                                 )}
 
-
+                                {/* Action Buttons */}
+                                <div className="d-flex justify-content-center mb-3">
+                                    <Button
+                                        type="submit"
+                                        variant="outline-primary"
+                                        size="sm"
+                                        className="me-2"
+                                        disabled={isProcessing}>
+                                            {isProcessing ? (
+                                                <ProcessSpinner message="Processing registration..."/>
+                                            ) : (
+                                                "Register"
+                                            )}
+                                    </Button>
+                                    <Button
+                                        variant="outline-info"
+                                        size="sm"
+                                        onClick={handleReset}>
+                                        Reset
+                                    </Button>
+                                </div>
                             </Card.Body>
                         </Card>
                     </Form>
