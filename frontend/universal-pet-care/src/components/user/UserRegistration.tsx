@@ -228,3 +228,5 @@ const UserRegistration = () => {
         </Container>
     )
 }
+
+export default UserRegistration;
