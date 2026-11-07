@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import ProcessSpinner from "../common/ProcessSpinner";
+import AlertMessage from "../common/AlertMessage";
+import { Link } from "react-router-dom";
 
 const UserRegistration = () => {
     const [user, setUser] = useState({
@@ -202,6 +204,21 @@ const UserRegistration = () => {
                                         onClick={handleReset}>
                                         Reset
                                     </Button>
+                                </div>
+
+                                {/* Adjust column sizes for different screens */}
+                                {showErrorAlert && (
+                                    <AlertMessage type='danger' message={errorMessage} />
+                                )}
+                                {showSuccessAlert && (
+                                    <AlertMessage type='success' message={successMessage} />
+                                )}
+
+                                <div className="text-center">
+                                    Register already?(" ")
+                                    <Link to={"/login"} style={{ textDecoration: "none" }}>
+                                        Login here
+                                    </Link>
                                 </div>
                             </Card.Body>
                         </Card>
