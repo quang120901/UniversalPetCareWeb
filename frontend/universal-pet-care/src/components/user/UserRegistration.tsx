@@ -154,6 +154,34 @@ const UserRegistration = () => {
                                     />
                                 </Col>
                                 </Form.Group>
+
+                                {/* Account Type */}
+                                <Form.Group as={Row} controlId="user-type" className="mb-3">
+                                    <Col>
+                                        <Form.Label>Account Type</Form.Label>
+                                        <Form.Control
+                                            as="select"
+                                            name="userType"
+                                            required
+                                            value={user.userType}
+                                            onChange={handleInputChange}>
+                                                <option value="">...select account type...</option>
+                                                <option value="VET">I'm a Veterinarian</option>
+                                                <option value="PATIENT">I'm a pet owner</option>
+                                        </Form.Control>
+                                    </Col>
+                                </Form.Group>
+                                {user.userType === "VET" &&(
+                                    <Form.Group>
+                                        <Row>
+                                            <Col>
+                                                //////////////////////////
+                                            </Col>
+                                        </Row>
+                                    </Form.Group>
+                                )}
+
+
                             </Card.Body>
                         </Card>
                     </Form>
