@@ -280,7 +280,8 @@
 
 /* End Admin Dashboard */
 
-/* Review styling */
+
+/* Review component styling */
 .review {
   color: rgb(88, 194, 247);
   font-size: 12px;
@@ -324,12 +325,14 @@ input[type="radio"] {
   max-width: 700px !important;
 }
 
-/* End review styling */
+/* End review component styling */
 
 
-/* appointment Pie chart cell coloration */
+
+
+/* appointment status colors assignment */
 :root {
-  --color-on-going: #78b517;
+  --color-on-going: #78b517;  
   --color-up-coming: #af5fc5;
   --color-completed: #0faf57;
   --color-cancelled: #7d0d23;
@@ -344,6 +347,7 @@ input[type="radio"] {
   --color-white: #ffffff;
   --color-primary: #87cefa;
   --user-dashboard-background: #f5f5f5e0;
+  --pet-entry-form-background: #f5f5f5;
   /* Default color */
 }
 
