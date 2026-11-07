@@ -27,6 +27,7 @@ const UserRegistration = () => {
         showErrorAlert,
         setShowErrorAlert,
     } = UseMessageAlerts();
+    const[isProcessing, setIsProcessing] = useState(false);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
