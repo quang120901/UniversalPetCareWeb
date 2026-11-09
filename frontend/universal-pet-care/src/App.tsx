@@ -6,6 +6,7 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import RootLayout from './components/layout/RootLayout'
 import VeterinarianListing from './components/veterinarian/VeterinarianListing'
 import UserRegistration from './components/user/UserRegistration'
+import Login from './components/auth/Login'
 
 function App() {
   const router = createBrowserRouter(createRoutesFromElements(
@@ -13,6 +14,7 @@ function App() {
       <Route index element={<Home />} />
       <Route path='/doctors' element={<VeterinarianListing />} />
       <Route path='/register-user' element={<UserRegistration />} />
+      <Route path='/login' element={<Login />} />
     </Route>
     )
   );
