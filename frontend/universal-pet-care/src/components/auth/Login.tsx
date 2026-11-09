@@ -27,7 +27,22 @@ const Login = () => {
                                     <Form.Label>Username</Form.Label>
                                     <InputGroup>
                                         <InputGroup.Text>
-                                            <BsLockFill /> {/* User icon */}
+                                            <BsPersonFill /> {/* User icon */}
+                                        </InputGroup.Text>
+                                        <Form.Control
+                                            type="text"
+                                            name="email"
+                                            value={credentials.email}
+                                            onChange={handleChange}
+                                        />
+                                    </InputGroup>
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="password">
+                                    <Form.Label>Password</Form.Label>
+                                    <InputGroup>
+                                        <InputGroup.Text>
+                                            <BsLockFill /> {/* Lock icon */}
                                         </InputGroup.Text>
                                         <Form.Control
                                             type="text"
