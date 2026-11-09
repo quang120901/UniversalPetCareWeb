@@ -1,5 +1,6 @@
 import React, { use } from "react";
-import { Card, Col, Container, Form, Row } from "react-bootstrap";
+import { Card, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
+import { BsLockFill, BsPersonFill } from "react-icons/bs";
 
 const Login = () => {
     const [credentials, setCredentials] = use({
@@ -24,6 +25,17 @@ const Login = () => {
                             <Form>
                                 <Form.Group>
                                     <Form.Label>Username</Form.Label>
+                                    <InputGroup>
+                                        <InputGroup.Text>
+                                            <BsLockFill /> {/* User icon */}
+                                        </InputGroup.Text>
+                                        <Form.Control
+                                            type="text"
+                                            name="email"
+                                            value={credentials.email}
+                                            onChange={handleChange}
+                                        />
+                                    </InputGroup>
                                 </Form.Group>
                             </Form>
                         </Card.Body>
