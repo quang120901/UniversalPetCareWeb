@@ -1,6 +1,7 @@
 import React, { use } from "react";
 import { Button, Card, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { BsLockFill, BsPersonFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const Login = () => {
     const [credentials, setCredentials] = use({
@@ -59,6 +60,14 @@ const Login = () => {
                                         Login
                                 </Button>
                             </Form>
+                            <div className="text-center mt-2">
+                                Don't have an account yet?{" "}
+                                <Link
+                                    to={"/user-registration"}
+                                    style={{ textDecoration: "none" }}>
+                                        Register here
+                                </Link>{" "}
+                            </div>
                         </Card.Body>
                     </Card>
                 </Col>
