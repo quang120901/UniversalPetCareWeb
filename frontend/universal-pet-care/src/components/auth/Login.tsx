@@ -34,7 +34,7 @@ const Login = () => {
                                             type="text"
                                             name="email"
                                             value={credentials.email}
-                                            onChange={handleChange}
+                                            onChange={handleInputChange}
                                         />
                                     </InputGroup>
                                 </Form.Group>
@@ -49,7 +49,7 @@ const Login = () => {
                                             type="password"
                                             name="password"
                                             value={credentials.password}
-                                            onChange={handleChange}
+                                            onChange={handleInputChange}
                                         />
                                     </InputGroup>
                                 </Form.Group>
@@ -66,7 +66,7 @@ const Login = () => {
                                     to={"/user-registration"}
                                     style={{ textDecoration: "none" }}>
                                         Register here
-                                </Link>{" "}
+                                </Link>{"/register-user"}
                             </div>
                         </Card.Body>
                     </Card>
