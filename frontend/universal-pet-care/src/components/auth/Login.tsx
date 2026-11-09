@@ -23,7 +23,7 @@ const Login = () => {
                         <Card.Body>
                             <Card.Title className="text-center mb-4"></Card.Title>
                             <Form>
-                                <Form.Group>
+                                <Form.Group className="mb-3" controlId="username">
                                     <Form.Label>Username</Form.Label>
                                     <InputGroup>
                                         <InputGroup.Text>
@@ -45,9 +45,9 @@ const Login = () => {
                                             <BsLockFill /> {/* Lock icon */}
                                         </InputGroup.Text>
                                         <Form.Control
-                                            type="text"
-                                            name="email"
-                                            value={credentials.email}
+                                            type="password"
+                                            name="password"
+                                            value={credentials.password}
                                             onChange={handleChange}
                                         />
                                     </InputGroup>
