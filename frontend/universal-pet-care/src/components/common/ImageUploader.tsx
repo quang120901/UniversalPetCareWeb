@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getUserById } from "../user/UserService";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
+import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 
-const ImageUploader = ({userId}) => {
+const ImageUploader = ({ userId, show, handleClose}) => {
     const [file, setFile] = useState(null);
     const [user, setUser] = useState(null);
     const {
@@ -70,9 +71,18 @@ const ImageUploader = ({userId}) => {
     //3. if yes, the update the existing photo
     //esle, create a new photo for the user
     return (
-        <div>
-
-        </div>
+        <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>Upload a Photo</Modal.Header>
+            <Modal.Body>
+                <Form>
+                    <InputGroup>
+                        <Form.Control type="file">
+                            <Button variant="secondary" onClick={handleImageUpload}>Upload</Button>
+                        </Form.Control>
+                    </InputGroup>
+                </Form>
+            </Modal.Body>
+        </Modal>
     )
 }
 
