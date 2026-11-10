@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getUserById } from "../user/UserService";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
 
-const ImageUploader = () => {
+const ImageUploader = ({userId}) => {
     const [file, setFile] = useState(null);
     const [user, setUser] = useState(null);
     const {
@@ -32,6 +32,32 @@ const ImageUploader = () => {
         }
     }
 
+    useEffect(() => {
+        getUser();
+    }, [userId])
+
+    const handleImageUpload = async (e) => {
+        e.preventDefault();
+
+        try {
+            const formData = new FormData();
+            formData.append("file", file);
+
+            if(user && user.photo) {
+                const reader = new FileReader();
+                reader.readAsArrayBuffer(file);
+                reader.onload = async (e) => {
+                    const fileBytes = new Uint8Array(e.target.result)
+                    const response = await updatePhoto(user.photoId, fileBytes)
+                    setSuccessMessage(response.data)
+                    window.location.reload();
+                    setShowSuccessAlert(true);
+                }
+            }
+        } catch (error) {
+
+        }
+    }
     //1. get the user
     //2. check if the user already got a photo
     //3. if yes, the update the existing photo
