@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { getUserById } from "../user/UserService";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
-import AlertMessage from "./AlertMessage";
+import { updateUserPhoto, uploadUserPhoto } from "./ImageUploaderService";
+import AlertMessage from "../common/AlertMessage";
 
 const ImageUploader = ({ userId, show, handleClose}) => {
     const [file, setFile] = useState(null);
