@@ -24,3 +24,12 @@ export async function uploadUserPhoto(userId, photoData) {
         throw error;
     }
 }
+
+export async function deleteUserPhoto(photoId, userId) {
+    try {
+        const response = await api.delete(`/photos/photo/${photoId}/${userId}/delete`)
+        return response.data
+    } catch (error) {
+        throw error;
+    }
+}
