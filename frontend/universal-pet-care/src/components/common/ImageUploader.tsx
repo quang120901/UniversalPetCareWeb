@@ -48,14 +48,21 @@ const ImageUploader = ({userId}) => {
                 reader.readAsArrayBuffer(file);
                 reader.onload = async (e) => {
                     const fileBytes = new Uint8Array(e.target.result)
-                    const response = await updatePhoto(user.photoId, fileBytes)
+                    const response = await updateUserPhoto(user.photoId, fileBytes)
                     setSuccessMessage(response.data)
                     window.location.reload();
                     setShowSuccessAlert(true);
                 }
+            } else {
+                const response = await uploadUserPhoto(userId, fileBytes);
+                setSuccessMessage(response.data);
+                window.location.reload();
+                setShowSuccessAlert(true);
             }
         } catch (error) {
-
+            setErrorMessage(error.response.data.message);
+            setShowErrorAlert(true);
+            console.error(error.message);
         }
     }
     //1. get the user
