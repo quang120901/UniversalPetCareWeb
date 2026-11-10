@@ -12,3 +12,15 @@ export async function updateUserPhoto(photoId, photoData) {
         throw error;
     }
 }
+
+export async function uploadUserPhoto(userId, photoData) {
+    try {
+        const formData = new FormData();
+        formData.append("file", photoData);
+        formData.append("userId", userId);
+        const response = await api.post("/photos/upload/upload", formData);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
