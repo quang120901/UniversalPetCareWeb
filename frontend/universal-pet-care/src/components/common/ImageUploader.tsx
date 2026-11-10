@@ -78,8 +78,9 @@ const ImageUploader = ({ userId, show, handleClose}) => {
                 {showErrorAlert && (<AlertMessage type={"danger"} message={errorMessage} />)}
                 {showSuccessAlert && (<AlertMessage type={"success"} message={success} />)}
                 <Form>
+                    <h6>Select the photo you would like to display on your profile</h6>
                     <InputGroup>
-                        <Form.Control type="file">
+                        <Form.Control type="file" onChange={handleFileChange}>
                             <Button variant="secondary" onClick={handleImageUpload}>Upload</Button>
                         </Form.Control>
                     </InputGroup>
