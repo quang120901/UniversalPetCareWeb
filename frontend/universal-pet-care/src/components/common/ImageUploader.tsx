@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getUserById } from "../user/UserService";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
+import AlertMessage from "./AlertMessage";
 
 const ImageUploader = ({ userId, show, handleClose}) => {
     const [file, setFile] = useState(null);
@@ -74,6 +75,8 @@ const ImageUploader = ({ userId, show, handleClose}) => {
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>Upload a Photo</Modal.Header>
             <Modal.Body>
+                {showErrorAlert && (<AlertMessage type={"danger"} message={errorMessage} />)}
+                {showSuccessAlert && (<AlertMessage type={"success"} message={success} />)}
                 <Form>
                     <InputGroup>
                         <Form.Control type="file">
