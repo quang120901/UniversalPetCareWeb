@@ -5,7 +5,7 @@ import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 import { updateUserPhoto, uploadUserPhoto } from "./ImageUploaderService";
 import AlertMessage from "../common/AlertMessage";
 
-const ImageUploader = ({ userId, show, handleClose}) => {
+const ImageUploaderModal = ({ userId, show, handleClose}) => {
     const [file, setFile] = useState(null);
     const [user, setUser] = useState(null);
     const {
@@ -91,4 +91,4 @@ const ImageUploader = ({ userId, show, handleClose}) => {
     )
 }
 
-export default ImageUploader
+export default ImageUploaderModal;
