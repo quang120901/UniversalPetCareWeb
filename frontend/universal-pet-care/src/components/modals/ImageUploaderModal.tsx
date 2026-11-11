@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getUserById } from "../user/UserService";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
-import { updateUserPhoto, uploadUserPhoto } from "./ImageUploaderService";
+import { updateUserPhoto, uploadUserPhoto } from "../photo/ImageUploaderService";
 import AlertMessage from "../common/AlertMessage";
 
 const ImageUploader = ({ userId, show, handleClose}) => {
