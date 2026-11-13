@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { eyeOff } from "react-icons-kit/feather"
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import { changeUserPassword } from "../user/UserService";
-import { Form, InputGroup, Modal } from "react-bootstrap";
+import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 import Icon from "react-icons-kit";
 
 const ChangePasswordModal = () => {
@@ -111,6 +111,19 @@ const ChangePasswordModal = () => {
                             onChange={handleInputChange}
                         />
                     </Form.Group>
+
+                    <div className="d-flex justify-content-center mt-4">
+                        <div className="mx-2">
+                            <Button variant="secondary" size="sm" type="submit">
+                                Change Password
+                            </Button>
+                        </div>
+                         <div className="mx-2 mb-4">
+                            <Button variant="danger" size="sm" onClick={handleResetForm}>
+                                Reset
+                            </Button>
+                        </div>
+                    </div>
                 </Form>
             </Modal.Body>
         </Modal>
