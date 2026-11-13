@@ -48,6 +48,16 @@ const ChangePasswordModal = () => {
         }
     }
 
+    const handleShowPassword = () => {
+        if (type === "password") {
+            setType("text");
+            setIcon(eyeOn);
+        } else {
+            setType("password");
+            setIcon(eyeOff)
+        }
+    }
+
     const handleReset = () => {
         setPasswords({
             currentPassword : "",
