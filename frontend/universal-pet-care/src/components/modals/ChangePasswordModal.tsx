@@ -3,6 +3,7 @@ import { eyeOff } from "react-icons-kit/feather"
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import { changeUserPassword } from "../user/UserService";
 import { Form, InputGroup, Modal } from "react-bootstrap";
+import Icon from "react-icons-kit";
 
 const ChangePasswordModal = () => {
     const [type, setType] = useState("password")
@@ -85,6 +86,9 @@ const ChangePasswordModal = () => {
                                 value={currentPassword}
                                 onChange={handleInputChange}
                             />
+                            <InputGroup.Text onClick={handleShowPassword}>
+                                <Icon icon={icon} />
+                            </InputGroup.Text>
                         </InputGroup>
                     </Form.Group>
                 </Form>
