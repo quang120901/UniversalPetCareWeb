@@ -40,11 +40,22 @@ const ChangePasswordModal = () => {
             const response = await changeUserPassword(userId, passwords);
             setSuccessMessage(response.message);
             setShowSuccessAlert(true);
+            handleReset();
         } catch (error) {
             setErrorMessage(error.response.data.message);
             setShowErrorAlert(true);
             console.error(error.message);
         }
+    }
+
+    const handleReset = () => {
+        setPasswords({
+            currentPassword : "",
+            newPassword : "",
+            confirmNewPassword : "",
+        });
+        setShowErrorAlert(false);
+        setShowSuccessAlert(false);
     }
 
     return (
