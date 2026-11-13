@@ -23,7 +23,11 @@ const ChangePasswordModal = () => {
     } = UseMessageAlerts();
 
     const handleInputChange = (e) =>{
-        
+        const { name, value } = e.target;
+        setPasswords((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }))
     }
 
     return (
