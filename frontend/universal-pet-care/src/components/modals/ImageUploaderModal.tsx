@@ -74,7 +74,9 @@ const ImageUploaderModal = ({ userId, show, handleClose}) => {
     //esle, create a new photo for the user
     return (
         <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>Upload a Photo</Modal.Header>
+            <Modal.Header closeButton>
+                <Modal.Title>Upload a photo</Modal.Title>
+            </Modal.Header>
             <Modal.Body>
                 {showErrorAlert && (<AlertMessage type={"danger"} message={errorMessage} />)}
                 {showSuccessAlert && (<AlertMessage type={"success"} message={success} />)}
