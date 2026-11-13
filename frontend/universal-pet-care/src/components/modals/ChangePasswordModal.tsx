@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { eyeOff } from "react-icons-kit/feather"
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
+import { changeUserPassword } from "../user/UserService";
 
 const ChangePasswordModal = () => {
     const [type, setType] = useState("password")
@@ -28,6 +29,22 @@ const ChangePasswordModal = () => {
             ...prevState,
             [name]: value,
         }))
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const { currentPassword, newPassword, confirmNewPassword } = passwords;
+
+        try {
+            const response = await changeUserPassword(userId, passwords);
+            setSuccessMessage(response.message);
+            setShowSuccessAlert(true);
+        } catch (error) {
+            setErrorMessage(error.response.data.message);
+            setShowErrorAlert(true);
+            console.error(error.message);
+        }
     }
 
     return (
