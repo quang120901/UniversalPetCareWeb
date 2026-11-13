@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { eyeOff } from "react-icons-kit/feather"
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import { changeUserPassword } from "../user/UserService";
+import { Form, InputGroup, Modal } from "react-bootstrap";
 
 const ChangePasswordModal = () => {
     const [type, setType] = useState("password")
@@ -69,9 +70,26 @@ const ChangePasswordModal = () => {
     }
 
     return (
-        <div>
-
-        </div>
+        <Modal>
+            <Modal.Header>
+                <Modal.Title>Change Password</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form>
+                    <Form.Group controlId="currentPassword">
+                        <Form.Label>Current Password:</Form.Label>
+                        <InputGroup>
+                            <Form.Control
+                                type={type}
+                                name='currentPassword'
+                                value={currentPassword}
+                                onChange={handleInputChange}
+                            />
+                        </InputGroup>
+                    </Form.Group>
+                </Form>
+            </Modal.Body>
+        </Modal>
     )
 }
 
