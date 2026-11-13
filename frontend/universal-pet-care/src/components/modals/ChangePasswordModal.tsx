@@ -101,6 +101,16 @@ const ChangePasswordModal = () => {
                             onChange={handleInputChange}
                         />
                     </Form.Group>
+
+                     <Form.Group controlId="confirmNewPassword" className="mb-2">
+                        <Form.Label>Confirm New Password:</Form.Label>
+                        <Form.Control
+                            type={type}
+                            name='confirmNewPassword'
+                            value={confirmNewPassword}
+                            onChange={handleInputChange}
+                        />
+                    </Form.Group>
                 </Form>
             </Modal.Body>
         </Modal>
