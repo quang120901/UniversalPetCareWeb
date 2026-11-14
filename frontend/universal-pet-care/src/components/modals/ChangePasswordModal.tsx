@@ -72,7 +72,7 @@ const ChangePasswordModal = () => {
     }
 
     return (
-        <Modal>
+        <Modal show={show} onHide={handleClose}>
             <Modal.Header>
                 <Modal.Title>Change Password</Modal.Title>
             </Modal.Header>
