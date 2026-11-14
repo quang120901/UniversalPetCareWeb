@@ -34,7 +34,7 @@ public class VeterinarianController {
         return ResponseEntity.ok(new ApiResponse(FeedBackMessage.RESOURCE_FOUND, allVeterinarians));
     }
 
-    @GetMapping(UrlMapping.SEARCH_VERINARIAN_FOR_APPOINTMENT)
+    @GetMapping(UrlMapping.SEARCH_VETERINARIAN_FOR_APPOINTMENT)
     public ResponseEntity<ApiResponse> searchVeterinariansForAppointment(
             @RequestParam(required = false) LocalDate date,
             @RequestParam(required = false) LocalTime time,
