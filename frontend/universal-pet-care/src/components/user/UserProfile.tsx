@@ -55,6 +55,17 @@ const UserProfile = ({user}) => {
                         </div>
                     </Card>
                 </Col>
+
+                <Col md={8}>
+                    <Card>
+                        <Card.Body>
+                            <Col md={4}>First Name</Col>
+                            <Col md={4}>
+                                <Card.Text>{user.firstName}</Card.Text>
+                            </Col>
+                        </Card.Body> 
+                    </Card>
+                </Col>
             </Row>
         </React.Fragment>
     )
