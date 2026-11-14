@@ -32,7 +32,7 @@ const UserProfile = ({user}) => {
                         </Card.Body>
                         <div>
                             <Link to={"#"} onClick={handleShowImageUploaderModal}>
-                            Update Photo
+                                Update Photo
                             </Link>
                             <ImageUploaderModal 
                                 userId={user.id}
