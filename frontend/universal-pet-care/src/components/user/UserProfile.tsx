@@ -64,6 +64,12 @@ const UserProfile = ({user}) => {
                                 <Card.Text>{user.firstName}</Card.Text>
                             </Col>
                         </Card.Body> 
+                        <Card.Body>
+                            <Col md={4}>Last Name</Col>
+                            <Col md={4}>
+                                <Card.Text>{user.lastName}</Card.Text>
+                            </Col>
+                        </Card.Body>
                     </Card>
                 </Col>
             </Row>
