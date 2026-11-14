@@ -22,5 +22,8 @@ public class ChangePasswordService {
             || Objects.equals(request.getNewPassword(), "")) {
                 throw new IllegalArgumentException("All fields are required");
         }
+        if(!Object.equals(request.getCurrentPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("Current password does not match");
+        }
     }
 }
