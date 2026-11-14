@@ -1,7 +1,6 @@
 package com.springboot.universalpetcare.service.review;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -9,9 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.springboot.universalpetcare.enums.AppointmentStatus;
 import com.springboot.universalpetcare.exception.ResourceNotFoundException;
-import com.springboot.universalpetcare.exception.AlreadyExistsException;
 import com.springboot.universalpetcare.model.Review;
 import com.springboot.universalpetcare.model.User;
 import com.springboot.universalpetcare.repository.AppointmentRepository;
