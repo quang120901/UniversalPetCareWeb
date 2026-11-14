@@ -26,11 +26,11 @@ const UserProfile = ({user}) => {
         <React.Fragment>
             <Row>
                 <Col md={3}>
-                    <Card>
+                    <Card className="text-center mb-3 shadow">
                         <Card.Body>
                             <UserImage userId={user.id} userPhoto={user.photo} />
                         </Card.Body>
-                        <div>
+                        <div className="text-center">
                             <Link to={"#"} onClick={handleShowImageUploaderModal}>
                                 Update Photo
                             </Link>
@@ -38,9 +38,15 @@ const UserProfile = ({user}) => {
                                 userId={user.id}
                                 show={showImageUploaderModal}
                                 handleClose={handleCloseImageUploaderModal} />
+
+                            <Link to={"#"} onClick={""}>
+                                Remove Photo
+                            </Link>
+
                             <Link to={"#"} onClick={handleShowChangePasswordModal}>
                                 Change Password
                             </Link>
+
                             <ChangePasswordModal 
                                 userId={user.id}
                                 show={showChangePasswordModal}
