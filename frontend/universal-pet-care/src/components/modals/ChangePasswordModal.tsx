@@ -4,6 +4,7 @@ import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import { changeUserPassword } from "../user/UserService";
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 import Icon from "react-icons-kit";
+import AlertMessage from "../common/AlertMessage";
 
 const ChangePasswordModal = () => {
     const [type, setType] = useState("password")
@@ -76,6 +77,8 @@ const ChangePasswordModal = () => {
                 <Modal.Title>Change Password</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                {showErrorAlert && (<AlertMessage type={"danger"} message={errorMessage}/>)}
+                {showSuccessAlert && (<AlertMessage type={"success"} message={successMessage}/>)}
                 <Form>
                     <Form.Group controlId="currentPassword">
                         <Form.Label>Current Password:</Form.Label>
