@@ -3,6 +3,7 @@ import { Card, Col, Row } from "react-bootstrap";
 import UserImage from "../common/UserImage";
 import { Link } from "react-router-dom";
 import ImageUploaderModal from "../modals/ImageUploaderModal";
+import ChangePasswordModal from "../modals/ChangePasswordModal";
 
 const UserProfile = ({user}) => {
     const [showImageUploaderModal, setShowImageUploaderModal] = useState(false);
@@ -33,9 +34,18 @@ const UserProfile = ({user}) => {
                             <Link to={"#"} onClick={handleShowImageUploaderModal}>
                             Update Photo
                             </Link>
-                            <ImageUploaderModal userId={user.id} userPhoto={user.photo} />
-                            <Link to={"#"} onClick={handleShowChangePasswordModal} />
-                            Change Password
+                            <ImageUploaderModal 
+                                userId={user.id}
+                                show={showImageUploaderModal}
+                                handleClose={handleCloseImageUploaderModal} />
+                            <Link to={"#"} onClick={handleShowChangePasswordModal}>
+                                Change Password
+                            </Link>
+                            <ChangePasswordModal 
+                                userId={user.id}
+                                show={showChangePasswordModal}
+                                handleClose={handleCloseChangePasswordModal}
+                            />
                         </div>
                     </Card>
                 </Col>
