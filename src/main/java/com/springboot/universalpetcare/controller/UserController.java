@@ -1,5 +1,8 @@
 package com.springboot.universalpetcare.controller;
 
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -19,9 +22,11 @@ import com.springboot.universalpetcare.dto.UserDto;
 import com.springboot.universalpetcare.exception.ResourceNotFoundException;
 import com.springboot.universalpetcare.exception.AlreadyExistsException;
 import com.springboot.universalpetcare.model.User;
+import com.springboot.universalpetcare.request.ChangePasswordRequest;
 import com.springboot.universalpetcare.request.RegistrationRequest;
 import com.springboot.universalpetcare.request.UserUpdateRequest;
 import com.springboot.universalpetcare.respone.ApiResponse;
+import com.springboot.universalpetcare.service.password.IChangePasswordService;
 import com.springboot.universalpetcare.service.user.UserService;
 import com.springboot.universalpetcare.ultis.FeedBackMessage;
 import com.springboot.universalpetcare.ultis.UrlMapping;
@@ -35,6 +40,7 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
     private final UserService userService;
     private final EntityConverter<User, UserDto> entityConverter;
+    private final IChangePasswordService changePasswordService;
 
     @PostMapping(UrlMapping.REGISTER_USER)
     public ResponseEntity<ApiResponse> register(@RequestBody RegistrationRequest request) {
@@ -90,5 +96,20 @@ public class UserController {
     public ResponseEntity<ApiResponse> getAllUsers() {
         List<UserDto> theUsers = userService.getAllUsers();
         return ResponseEntity.status(HttpStatus.FOUND).body(new ApiResponse(FeedBackMessage.RESOURCE_FOUND, theUsers));
+    }
+
+    @PutMapping(UrlMapping.CHANGE_PASSWORD)
+    public ResponseEntity<ApiResponse> changePassword(@PathVariable Long userId,
+                                                      @RequestBody ChangePasswordRequest request) {
+        try {
+            changePasswordService.changePassword(userId, request);
+            return ResponseEntity.ok(new ApiResponse(FeedBackMessage.CREATE_SUCCESS, null));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(new ApiResponse(e.getMessage(), null));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+        } catch (Exception e) {
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
+        }
     }
 }
