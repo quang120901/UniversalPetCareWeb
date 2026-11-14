@@ -13,9 +13,10 @@ import lombok.RequiredArgsConstructor;
 
 @Service 
 @RequiredArgsConstructor 
-public class ChangePasswordService {
+public class ChangePasswordService implements IChangePasswordService{
     private final UserRepository userRepository;
 
+    @Override 
     public void changePassword(Long userId, ChangePasswordRequest request) {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
         if(Objects.equals(request.getCurrentPassword(), "")
