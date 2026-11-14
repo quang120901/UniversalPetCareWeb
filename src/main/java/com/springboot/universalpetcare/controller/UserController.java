@@ -30,7 +30,7 @@ import lombok.RequiredArgsConstructor;
 
 @CrossOrigin ("http://localhost:5174")
 @RequiredArgsConstructor
-@RequestMapping(UrlMapping.USER)
+@RequestMapping(UrlMapping.USERS)
 @RestController
 public class UserController {
     private final UserService userService;
