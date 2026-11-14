@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
-const UserProfile = () => {
+const UserProfile = ({user}) => {
+    const [showImageUploaderModal, setShowImageUploaderModal] = useState(false);
+    const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
+
     return (
         <div>
 
