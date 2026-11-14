@@ -28,5 +28,7 @@ public class ChangePasswordService {
          if(!Objects.equals(request.getNewPassword(), request.getConfirmNewPassword())) {
             throw new IllegalArgumentException("Password confirmation mis-match");
         }
+        user.setPassword(request.getNewPassword());
+        userRepository.save(user);
     }
 }
