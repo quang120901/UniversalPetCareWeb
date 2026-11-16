@@ -3,6 +3,7 @@ import { Container, Tab, Tabs } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import UserProfile from "./UserProfile";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
+import { deleteUserPhoto } from "../modals/ImageUploaderService";
 
 const UserDashboard = () => {
     const [user, setUser] = useState(null);
@@ -33,6 +34,18 @@ const UserDashboard = () => {
         }
         getUser();
     }, [userId]);
+
+    const handleRemovePhoto = async () => {
+        try {
+            const result = await deleteUserPhoto(user.photoId, user.id);
+            setSuccessMessage(result.message);
+            setShowSuccessAlert(true);
+        } catch (error) {
+            setErrorMessage(error.message);
+            setShowErrorAlert(true);
+            console.error(error.message);
+        }
+    }
 
     return (
         <Container>
