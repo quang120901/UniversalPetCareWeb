@@ -29,7 +29,7 @@ const NavBar = () => {
                                 Login
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item to={"/user-profile"} as={Link}>
+                            <NavDropdown.Item to={"/user-dashboard"} as={Link}>
                                 My Dashboard
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
