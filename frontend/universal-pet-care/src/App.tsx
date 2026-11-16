@@ -16,7 +16,7 @@ function App() {
       <Route path='/doctors' element={<VeterinarianListing />} />
       <Route path='/register-user' element={<UserRegistration />} />
       <Route path='/login' element={<Login />} />
-      <Route path='/user-dashboard' element={<UserDashboard />} />
+      <Route path='/user-dashboard/:userId/my-dashboard' element={<UserDashboard />} />
     </Route>
     )
   );
