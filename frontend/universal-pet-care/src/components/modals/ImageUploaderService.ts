@@ -18,7 +18,7 @@ export async function uploadUserPhoto(userId, photoData) {
         const formData = new FormData();
         formData.append("file", photoData);
         formData.append("userId", userId);
-        const response = await api.post("/photos/upload/upload", formData);
+        const response = await api.post("/photos/photo/upload", formData);
         return response.data;
     } catch (error) {
         throw error;
