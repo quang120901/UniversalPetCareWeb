@@ -92,6 +92,13 @@ const UserProfile = ({user}) => {
                                 <Card.Text>{user.phoneNumber}</Card.Text>
                             </Col>
                         </Card.Body>
+
+                        <Card.Body className="d-flex align-items-center">
+                            <Col md={4}>User Type :</Col>
+                            <Col md={4}>
+                                <Card.Text>{user.userType}</Card.Text>
+                            </Col>
+                        </Card.Body>
                     </Card>
                 </Col>
             </Row>
