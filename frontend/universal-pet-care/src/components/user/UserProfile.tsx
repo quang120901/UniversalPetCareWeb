@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import ImageUploaderModal from "../modals/ImageUploaderModal";
 import ChangePasswordModal from "../modals/ChangePasswordModal";
 
-const UserProfile = ({user}) => {
+const UserProfile = ({user, handleRemovePhoto}) => {
     const [showImageUploaderModal, setShowImageUploaderModal] = useState(false);
     const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
 
@@ -39,7 +39,7 @@ const UserProfile = ({user}) => {
                                 show={showImageUploaderModal}
                                 handleClose={handleCloseImageUploaderModal} />
 
-                            <Link to={"#"} onClick={""}>
+                            <Link to={"#"} onClick={handleRemovePhoto}>
                                 Remove Photo
                             </Link>
 
