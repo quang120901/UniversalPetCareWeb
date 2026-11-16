@@ -78,6 +78,13 @@ const UserProfile = ({user}) => {
                                 <Card.Text>{user.gender}</Card.Text>
                             </Col>
                         </Card.Body>
+
+                        <Card.Body className="d-flex align-items-center">
+                            <Col md={4}>Email :</Col>
+                            <Col md={4}>
+                                <Card.Text>{user.email}</Card.Text>
+                            </Col>
+                        </Card.Body>
                     </Card>
                 </Col>
             </Row>
