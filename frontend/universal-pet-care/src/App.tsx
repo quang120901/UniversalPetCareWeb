@@ -7,7 +7,7 @@ import RootLayout from './components/layout/RootLayout'
 import VeterinarianListing from './components/veterinarian/VeterinarianListing'
 import UserRegistration from './components/user/UserRegistration'
 import Login from './components/auth/Login'
-import UserProfile from './components/user/UserProfile'
+import UserDashboard from './components/user/UserDashboard'
 
 function App() {
   const router = createBrowserRouter(createRoutesFromElements(
@@ -16,7 +16,7 @@ function App() {
       <Route path='/doctors' element={<VeterinarianListing />} />
       <Route path='/register-user' element={<UserRegistration />} />
       <Route path='/login' element={<Login />} />
-      <Route path='/user-profile' element={<UserProfile />} />
+      <Route path='/user-dashboard' element={<UserDashboard />} />
     </Route>
     )
   );
