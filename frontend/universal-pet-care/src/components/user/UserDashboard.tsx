@@ -51,7 +51,7 @@ const UserDashboard = () => {
         <Container>
             <Tabs>
                 <Tab eventKey='profile' title={<h3>Profile</h3>}>
-                    {user && (<UserProfile user={user}/>)}
+                    {user && (<UserProfile user={user} handleRemovePhoto={handleRemovePhoto} />)}
                 </Tab>
             </Tabs>
         </Container>
