@@ -57,17 +57,25 @@ const UserProfile = ({user}) => {
                 </Col>
 
                 <Col md={8}>
-                    <Card>
-                        <Card.Body>
-                            <Col md={4}>First Name</Col>
+                    <Card className="mb-3 shadow">
+                        <Card.Body className="d-flex align-items-center">
+                            <Col md={4}>First Name :</Col>
                             <Col md={4}>
                                 <Card.Text>{user.firstName}</Card.Text>
                             </Col>
-                        </Card.Body> 
-                        <Card.Body>
-                            <Col md={4}>Last Name</Col>
+                        </Card.Body>
+
+                        <Card.Body className="d-flex align-items-center">
+                            <Col md={4}>Last Name :</Col>
                             <Col md={4}>
                                 <Card.Text>{user.lastName}</Card.Text>
+                            </Col>
+                        </Card.Body>
+
+                        <Card.Body className="d-flex align-items-center">
+                            <Col md={4}>Gender :</Col>
+                            <Col md={4}>
+                                <Card.Text>{user.gender}</Card.Text>
                             </Col>
                         </Card.Body>
                     </Card>
