@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import { Card, Col, ListGroup, Row } from "react-bootstrap";
 import UserImage from "../common/UserImage";
 import { Link } from "react-router-dom";
 import ImageUploaderModal from "../modals/ImageUploaderModal";
@@ -118,7 +118,22 @@ const UserProfile = ({user, handleRemovePhoto}) => {
                                 </Card.Text>
                             </Col>
                         </Card.Body>
-                        
+                    </Card>
+
+                    <Card className="mb-3 shadow">
+                        <Card.Body className="d-flex align-items-center">
+                            <Col md={2}>Role(s) :</Col>
+                            <Col md={4}>
+                                <ListGroup variant="flush">
+                                    {user.roles &&
+                                        user.roles.map((role, index) => {
+                                            <ListGroup.Item key={index} className="text-success">
+                                                {role ? role.replace("ROLE_", "") : ""}
+                                            </ListGroup.Item>
+                                        })}
+                                </ListGroup>
+                            </Col>
+                        </Card.Body>
                     </Card>
                 </Col>
             </Row>
