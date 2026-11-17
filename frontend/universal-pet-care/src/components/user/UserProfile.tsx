@@ -136,6 +136,7 @@ const UserProfile = ({user, handleRemovePhoto, handleCloseAccount}) => {
                         </Card.Body>
                     </Card>
 
+
                     <Card.Body>
                         <div className="d-flex justify-content-center mb-4">
                             <div className="mx-2">
