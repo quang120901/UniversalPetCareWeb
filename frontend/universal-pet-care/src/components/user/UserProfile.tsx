@@ -99,6 +99,16 @@ const UserProfile = ({user, handleRemovePhoto}) => {
                                 <Card.Text>{user.userType}</Card.Text>
                             </Col>
                         </Card.Body>
+
+                        {user.userType === "VET" && (
+                            <Card.Body className="d-flex align-items-center">
+                            <Col md={4}>Specialization :</Col>
+                            <Col md={4}>
+                                <Card.Text>{user.specialization}</Card.Text>
+                            </Col>
+                        </Card.Body>
+                        )}
+                        
                     </Card>
                 </Col>
             </Row>
