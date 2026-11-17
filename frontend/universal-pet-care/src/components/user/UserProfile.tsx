@@ -113,7 +113,7 @@ const UserProfile = ({user, handleRemovePhoto}) => {
                             <Col md={4}>Account status :</Col>
                             <Col md={4}>
                                 <Card.Text
-                                    className={user.enabled ? styles.active : styles.inactive}>
+                                    className={user.enabled ? "active" : "inactive"}>
                                     {user.enabled ? "Active" : "Inactive"}
                                 </Card.Text>
                             </Col>
