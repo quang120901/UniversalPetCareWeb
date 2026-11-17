@@ -108,6 +108,16 @@ const UserProfile = ({user, handleRemovePhoto}) => {
                             </Col>
                         </Card.Body>
                         )}
+
+                        <Card.Body className="d-flex align-items-center">
+                            <Col md={4}>Account status :</Col>
+                            <Col md={4}>
+                                <Card.Text
+                                    className={user.enabled ? styles.active : styles.inactive}>
+                                    {user.enabled ? "Active" : "Inactive"}
+                                </Card.Text>
+                            </Col>
+                        </Card.Body>
                         
                     </Card>
                 </Col>
