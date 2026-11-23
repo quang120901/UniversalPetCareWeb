@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import { useParams } from "react-router-dom";
-import { getUserById } from "./UserService";
+import { getUserById, updateUser } from "./UserService";
+import { UserType } from "../utils/utilities";
 
 const UserUpdate = () => {
 
@@ -47,6 +48,30 @@ const UserUpdate = () => {
             [name]: value,
         }));
     };
+
+    const handleUserUpdate = async (e) => {
+        e.preventDefault();
+        const updatedUserData = {
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            gender: userData.gender,
+            phoneNumber: userData.phoneNumber,
+            email: userData.email,
+            UserType: userData.userType,
+            specialization: userData.specialization,
+        };
+        try {
+          setIsProcessing(true);
+          const response = await updateUser(updatedUserData, userId);
+          setSuccessMessage(response.message);
+          setShowSuccessAlert(true);
+        } catch (error) {
+          setErrorMessage(error.message);
+          setShowErrorAlert(true);
+        } finally {
+            setIsProcessing(false);
+        }
+      };
 
     return(
         <div>
