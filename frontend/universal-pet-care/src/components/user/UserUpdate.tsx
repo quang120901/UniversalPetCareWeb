@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
+import { useParams } from "react-router-dom";
 
 const UserUpdate = () => {
+
+    const [isProcessing, setIsProcessing] = useState(false);
+    const { userId } = useParams();
     const [userData, setUserData] = useState({
         firstName: "",
         lastName: "",
