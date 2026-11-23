@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUserById, updateUser } from "./UserService";
+import { Card, Col, Container, Form } from "react-bootstrap";
 
 const UserUpdate = () => {
 
@@ -79,9 +80,33 @@ const UserUpdate = () => {
       }
 
     return(
-        <div>
-
-        </div>
+        <Container>
+            <div>
+                <Form>
+                    <div>
+                        <Card>
+                            <Card.Header></Card.Header>
+                            <Card.Body>
+                                <fieldset className="field-set">
+                                    <legend>Full Name</legend>
+                                    <Form.Group
+                                        as={Col}
+                                        controlId="nameFields"
+                                        className="mb-2 d-flex">
+                                            <Form.Control
+                                                type="text"
+                                                name="firstName"
+                                                value={userData.firstName}
+                                                onChange={handleUserInputChange}
+                                                style={{ marginRight: "10px" }}/>
+                                        </Form.Group>
+                                </fieldset>
+                            </Card.Body>
+                        </Card>
+                    </div>
+                </Form>
+            </div>
+        </Container>
     )
 }
 
