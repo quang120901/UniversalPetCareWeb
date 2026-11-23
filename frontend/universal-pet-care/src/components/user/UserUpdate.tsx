@@ -108,6 +108,20 @@ const UserUpdate = () => {
                                             />
                                         </Form.Group>
                                 </fieldset>
+
+                                <Form.Group as={Col} controlId="gender" className="mb-2">
+                                    <Form.Label className="legend">Gender</Form.Label>
+                                    <Form.Control
+                                        as="select"
+                                        name="gender"
+                                        value={userData.gender}
+                                        onChange={handleUserInputChange}>
+                                            <option value="">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Others">Others</option>
+                                    </Form.Control>
+                                </Form.Group>
                             </Card.Body>
                         </Card>
                     </div>
