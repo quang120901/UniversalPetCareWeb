@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getUserById, updateUser } from "./UserService";
-import { UserType } from "../utils/utilities";
 
 const UserUpdate = () => {
 
     const [isProcessing, setIsProcessing] = useState(false);
     const { userId } = useParams();
+    const navigate = useNavigate();
+
     const [userData, setUserData] = useState({
         firstName: "",
         lastName: "",
@@ -72,6 +73,10 @@ const UserUpdate = () => {
             setIsProcessing(false);
         }
       };
+
+      const handleCancelEdit = () => {
+        navigate(`/user-dashboard/${userId}/my-dashboard`);
+      }
 
     return(
         <div>
