@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import { useParams } from "react-router-dom";
+import { getUserById } from "./UserService";
 
 const UserUpdate = () => {
 
@@ -25,6 +26,19 @@ const UserUpdate = () => {
     showErrorAlert,
     setShowErrorAlert,
   } = UseMessageAlerts();
+
+    useEffect(() => {
+        const getUserData = async () => {
+            try {
+                const data = await getUserById(userId);
+                setUserData(data.data);
+            }   catch (error) {
+                setErrorMessage(error.message);
+            }
+        };
+
+        getUserData();
+    }, [userId]);
 
     return(
         <div>
