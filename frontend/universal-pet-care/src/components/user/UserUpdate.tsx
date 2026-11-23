@@ -82,7 +82,7 @@ const UserUpdate = () => {
     return(
         <Container>
             <div>
-                <Form>
+                <Form onSubmit={handleUserUpdate}>
                     <div>
                         <Card>
                             <Card.Header></Card.Header>
@@ -98,7 +98,14 @@ const UserUpdate = () => {
                                                 name="firstName"
                                                 value={userData.firstName}
                                                 onChange={handleUserInputChange}
-                                                style={{ marginRight: "10px" }}/>
+                                                style={{ marginRight: "10px" }}
+                                            />
+                                            <Form.Control
+                                                type="text"
+                                                name="lastName"
+                                                value={userData.lastName}
+                                                onChange={handleUserInputChange}
+                                            />
                                         </Form.Group>
                                 </fieldset>
                             </Card.Body>
