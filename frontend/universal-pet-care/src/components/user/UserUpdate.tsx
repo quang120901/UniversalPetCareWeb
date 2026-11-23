@@ -40,6 +40,14 @@ const UserUpdate = () => {
         getUserData();
     }, [userId]);
 
+    const handleUserInputChange = (e) => {
+        const { name, value } = e.target;
+        setUserData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+
     return(
         <div>
 
