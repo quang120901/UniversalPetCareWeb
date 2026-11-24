@@ -10,8 +10,10 @@ const DeleteConfirmationModal = ({
     loading,
 }) => {
     return (
-        <Modal>
-            <Modal.Header><Modal.Title>Delete Confirmation</Modal.Title></Modal.Header>
+        <Modal show={show} onHide={onHide}>
+            <Modal.Header closeButton>
+                <Modal.Title>Delete Confirmation</Modal.Title>
+            </Modal.Header>
             <Modal.Body>Are you sure you want to delete {itemToDelete}? This action cannot be 
                 undone.
             </Modal.Body>
@@ -19,10 +21,7 @@ const DeleteConfirmationModal = ({
             <Modal.Footer>
                 <Button variant="secondary" onClick={onHide}>
                     Cancel
-                </Button>
-
-                <ProcessSpinner message="Deleting..." />
-
+                </Button>{" "}
                 <Button variant="danger" onClick={onConfirm}>
                     Delete
                 </Button>
