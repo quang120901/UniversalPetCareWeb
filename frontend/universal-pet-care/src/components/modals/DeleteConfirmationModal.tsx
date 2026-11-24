@@ -1,6 +1,12 @@
 import React from "react";
 
-const DeleteConfirmationModal = () => {
+const DeleteConfirmationModal = ({
+    show,
+    onHide,
+    onConfirm,
+    itemToDelete,
+    loading,
+}) => {
     return (
         <div>
 
