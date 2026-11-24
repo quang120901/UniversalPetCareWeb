@@ -74,7 +74,8 @@ public class UserService implements IUserService {
                     reviewRepository.deleteAll(reviews);
                     List<Appointment> appointments = new ArrayList<>(appointmentRepository.findAllByUserId(userId));
                     appointmentRepository.deleteAll(appointments);
-                    
+                    userRepository.deleteById(userId);
+
                 }, () -> { throw new ResourceNotFoundException(FeedBackMessage.RESOURCE_NOT_FOUND);});
     }
     @Override
