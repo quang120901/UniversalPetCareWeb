@@ -15,6 +15,7 @@ function App() {
       <Route index element={<Home />} />
       <Route path='/doctors' element={<VeterinarianListing />} />
       <Route path='/register-user' element={<UserRegistration />} />
+      <Route path='/update-user/:userId/update' element={<UserRegistration />} />
       <Route path='/login' element={<Login />} />
       <Route path='/user-dashboard/:userId/my-dashboard' element={<UserDashboard />} />
     </Route>
