@@ -71,9 +71,11 @@ public class UserService implements IUserService {
         userRepository.findById(userId)
                 .ifPresentOrElse(userToDelete ->{
                     List<Review> reviews = new ArrayList<>(reviewRepository.findAllByUserId(userId));
+                    reviewRepository.deleteAll(reviews);
                     List<Appointment> appointments = new ArrayList<>(appointmentRepository.findAllByUserId(userId));
-                    throw new ResourceNotFoundException(FeedBackMessage.RESOURCE_NOT_FOUND);
-                });
+                    appointmentRepository.deleteAll(appointments);
+                    
+                }, () -> { throw new ResourceNotFoundException(FeedBackMessage.RESOURCE_NOT_FOUND);});
     }
     @Override
     public List<UserDto> getAllUsers() {
