@@ -47,7 +47,9 @@ const UserProfile = ({ user, handleRemovePhoto, handleDeleteAccount }) => {
         <Container>
             <DeleteConfirmationModal 
                 show={showDeleteModal}
-                onHide={}/>
+                onHide={handleCloseDeleteModal}
+                onConfirm={handleDeleteAndCloseModal}
+                />
             <React.Fragment>
                 <Row>
                     <Col md={3}>
