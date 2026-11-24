@@ -9,6 +9,8 @@ import DeleteConfirmationModal from "../modals/DeleteConfirmationModal";
 const UserProfile = ({ user, handleRemovePhoto, handleDeleteAccount }) => {
     const [showImageUploaderModal, setShowImageUploaderModal] = useState(false);
     const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [userToDelete, setUserToDelete] = useState(null);
 
     const handleShowImageUploaderModal = () => {
         setShowImageUploaderModal(true);
