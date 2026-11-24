@@ -4,6 +4,7 @@ import com.springboot.universalpetcare.service.photo.PhotoService;
 import com.springboot.universalpetcare.service.review.ReviewService;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,8 +12,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.springboot.universalpetcare.factory.UserFactory;
+import com.springboot.universalpetcare.model.Appointment;
 import com.springboot.universalpetcare.model.Review;
 import com.springboot.universalpetcare.model.User;
+import com.springboot.universalpetcare.repository.AppointmentRepository;
 import com.springboot.universalpetcare.repository.ReviewRepository;
 import com.springboot.universalpetcare.repository.UserRepository;
 import com.springboot.universalpetcare.repository.VeterinarianRepository;
@@ -40,6 +43,7 @@ public class UserService implements IUserService {
     private final PhotoService photoService;
     private final ReviewService reviewService;
     private final ReviewRepository reviewRepository;
+    private final AppointmentRepository appointmentRepository;
 
 
     @Override
@@ -65,7 +69,9 @@ public class UserService implements IUserService {
     @Override
     public void delete(Long userId) {
         userRepository.findById(userId)
-                .ifPresentOrElse(userRepository::delete, () ->{
+                .ifPresentOrElse(userToDelete ->{
+                    List<Review> reviews = new ArrayList<>(reviewRepository.findAllByUserId(userId));
+                    List<Appointment> appointments = new ArrayList<>(appointmentRepository.findAllByUserId(userId));
                     throw new ResourceNotFoundException(FeedBackMessage.RESOURCE_NOT_FOUND);
                 });
     }
