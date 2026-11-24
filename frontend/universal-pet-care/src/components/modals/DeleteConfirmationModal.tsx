@@ -1,5 +1,6 @@
 import React from "react";
-import { Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
+import ProcessSpinner from "../common/ProcessSpinner";
 
 const DeleteConfirmationModal = ({
     show,
@@ -14,6 +15,18 @@ const DeleteConfirmationModal = ({
             <Modal.Body>Are you sure you want to delete {itemToDelete}? This action cannot be 
                 undone.
             </Modal.Body>
+
+            <Modal.Footer>
+                <Button variant="secondary" onClick={onHide}>
+                    Cancel
+                </Button>
+
+                <ProcessSpinner message="Deleting..." />
+
+                <Button variant="danger" onClick={onConfirm}>
+                    Delete
+                </Button>
+            </Modal.Footer>
         </Modal>
     )
 }
