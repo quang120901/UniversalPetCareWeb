@@ -24,6 +24,11 @@ const UserProfile = ({ user, handleRemovePhoto, handleDeleteAccount }) => {
     const handleCloseChangePasswordModal = () => {
         setShowChangePasswordModal(false);
     };
+    
+    const handleShowDeleteModal = (userId) => {
+        setUserToDelete(userId);
+        setShowDeleteModal(true);
+    };
 
     const handleDeleteAndCloseModal = async() => {
         try{
