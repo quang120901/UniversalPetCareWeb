@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import UserProfile from "./UserProfile";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import { deleteUserPhoto } from "../modals/ImageUploaderService";
+import AlertMessage from "../common/AlertMessage";
 
 const UserDashboard = () => {
     const [user, setUser] = useState(null);
@@ -18,7 +19,7 @@ const UserDashboard = () => {
     showErrorAlert,
     setShowErrorAlert,
   } = UseMessageAlerts();
-
+                    
     const { userId } = useParams();
 
     useEffect(() => {
@@ -61,6 +62,11 @@ const UserDashboard = () => {
 
     return (
         <Container>
+            {showErrorAlert && (<AlertMessage type={"danger"} message={errorMessage} />)}
+
+            {showSuccessAlert && (
+                <AlertMessage type={"success"} message={successMessage} />
+            )}
             <Tabs>
                 <Tab eventKey='profile' title={<h3>Profile</h3>}>
                     {user && (
