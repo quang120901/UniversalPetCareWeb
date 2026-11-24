@@ -140,7 +140,7 @@ const UserProfile = ({user, handleRemovePhoto, handleCloseAccount}) => {
                     <Card.Body>
                         <div className="d-flex justify-content-center mb-4">
                             <div className="mx-2">
-                                <Link to={"/update-user/${userId}/update"} className="btn btn-warning btn-sm">
+                                <Link to={`/update-user/${user.id}/update`} className="btn btn-warning btn-sm">
                                     Edit profile
                                 </Link>
                             </div>
