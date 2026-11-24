@@ -47,11 +47,26 @@ const UserDashboard = () => {
         }
     }
 
+    const handleDeleteAccount = async () => {
+        try {
+            const response = await deleteUserPhoto(userId)
+            setSuccessMessage(response.message);
+            setShowSuccessAlert(true);
+        } catch (error) {
+            setErrorMessage(error.message);
+            setShowErrorAlert(true);
+            console.error(error.message);
+        }
+    }
+
     return (
         <Container>
             <Tabs>
                 <Tab eventKey='profile' title={<h3>Profile</h3>}>
-                    {user && (<UserProfile user={user} handleRemovePhoto={handleRemovePhoto} />)}
+                    {user && (
+                        <UserProfile user={user} 
+                        handleRemovePhoto={handleRemovePhoto}
+                        handleDeleteAccount={handleDeleteAccount} />)}
                 </Tab>
             </Tabs>
         </Container>
