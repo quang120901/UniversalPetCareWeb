@@ -4,8 +4,9 @@ import UserImage from "../common/UserImage";
 import { Link } from "react-router-dom";
 import ImageUploaderModal from "../modals/ImageUploaderModal";
 import ChangePasswordModal from "../modals/ChangePasswordModal";
+import DeleteConfirmationModal from "../modals/DeleteConfirmationModal";
 
-const UserProfile = ({ user, handleRemovePhoto, handleCloseAccount }) => {
+const UserProfile = ({ user, handleRemovePhoto, handleDeleteAccount }) => {
     const [showImageUploaderModal, setShowImageUploaderModal] = useState(false);
     const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
 
@@ -22,8 +23,18 @@ const UserProfile = ({ user, handleRemovePhoto, handleCloseAccount }) => {
         setShowChangePasswordModal(false);
     };
 
+    const handleDeleteAndCloseModal = async() => {
+        try{
+            await handleDeleteAccount()
+            setShowDeleteModal(false);
+        } catch (error){
+            console.error(error.message);
+        }
+    }
+
     return (
         <Container>
+            <DeleteConfirmationModal />
             <React.Fragment>
                 <Row>
                     <Col md={3}>
