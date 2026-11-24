@@ -24,7 +24,11 @@ const UserProfile = ({ user, handleRemovePhoto, handleDeleteAccount }) => {
     const handleCloseChangePasswordModal = () => {
         setShowChangePasswordModal(false);
     };
-    
+
+    const handleCloseDeleteModal = () => {
+        setShowDeleteModal(false);
+    };
+
     const handleShowDeleteModal = (userId) => {
         setUserToDelete(userId);
         setShowDeleteModal(true);
@@ -41,7 +45,9 @@ const UserProfile = ({ user, handleRemovePhoto, handleDeleteAccount }) => {
 
     return (
         <Container>
-            <DeleteConfirmationModal />
+            <DeleteConfirmationModal 
+                show={showDeleteModal}
+                onHide={}/>
             <React.Fragment>
                 <Row>
                     <Col md={3}>
