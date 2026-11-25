@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Container, Tab, Tabs } from "react-bootstrap";
+import { Card, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import UserProfile from "./UserProfile";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import { deleteUserPhoto } from "../modals/ImageUploaderService";
 import AlertMessage from "../common/AlertMessage";
+import Review from "../review/Review";
 
 const UserDashboard = () => {
     const [user, setUser] = useState(null);
@@ -76,7 +77,23 @@ const UserDashboard = () => {
                 </Tab>
                 <Tab eventKey='status' title={<h3>Appointments</h3>}></Tab>
                 <Tab eventKey='appointments' title={<h3>Appointment Details</h3>}></Tab>
-                <Tab eventKey='reviews' title={<h3>Reviews</h3>}></Tab>
+                <Tab eventKey='reviews' title={<h3>Reviews</h3>}>
+                        <Container>
+                            <Card>
+                                <h4>Your Reviews</h4>
+                                <Row>
+                                    <Col>
+                                        {user && user.reviews && user.reviews.length > 0 ? (
+                                            user.reviews.map((review, index) => (
+                                                <Review key={index} review={review} />
+                                            ))
+                                            
+                                        ) : (<p>No reviews found at this time</p>)}
+                                    </Col>
+                                </Row>
+                            </Card>
+                        </Container>
+                </Tab>
             </Tabs>
         </Container>
     )
