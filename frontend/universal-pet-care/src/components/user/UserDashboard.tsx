@@ -74,6 +74,9 @@ const UserDashboard = () => {
                         handleRemovePhoto={handleRemovePhoto}
                         handleDeleteAccount={handleDeleteAccount} />)}
                 </Tab>
+                <Tab eventKey='status' title={<h3>Appointments</h3>}></Tab>
+                <Tab eventKey='appointments' title={<h3>Appointment Details</h3>}></Tab>
+                <Tab eventKey='reviews' title={<h3>Reviews</h3>}></Tab>
             </Tabs>
         </Container>
     )
