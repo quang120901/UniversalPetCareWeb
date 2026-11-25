@@ -78,16 +78,18 @@ const UserDashboard = () => {
                 <Tab eventKey='status' title={<h3>Appointments</h3>}></Tab>
                 <Tab eventKey='appointments' title={<h3>Appointment Details</h3>}></Tab>
                 <Tab eventKey='reviews' title={<h3>Reviews</h3>}>
-                        <Container>
-                            <Card>
-                                <h4>Your Reviews</h4>
+                        <Container className="d-flex justify-content-center align-items-center">
+                            <Card className="mt-5 mb-4 review-card">
+                                <h4 className="text-center mb-2">Your Reviews</h4>
+                                <hr/>
+                                
                                 <Row>
                                     <Col>
                                         {user && user.reviews && user.reviews.length > 0 ? (
                                             user.reviews.map((review, index) => (
                                                 <Review key={index} review={review} />
                                             ))
-                                            
+
                                         ) : (<p>No reviews found at this time</p>)}
                                     </Col>
                                 </Row>
