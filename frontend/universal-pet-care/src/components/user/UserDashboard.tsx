@@ -67,7 +67,7 @@ const UserDashboard = () => {
             {showSuccessAlert && (
                 <AlertMessage type={"success"} message={successMessage} />
             )}
-            <Tabs>
+            <Tabs className="mb-2" justify>
                 <Tab eventKey='profile' title={<h3>Profile</h3>}>
                     {user && (
                         <UserProfile user={user} 
