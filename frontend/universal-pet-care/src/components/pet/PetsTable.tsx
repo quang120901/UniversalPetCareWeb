@@ -17,6 +17,14 @@ const PetsTable = ({ pets, appointmentId, onPetsUpdate, isEditable }) => {
     setShowErrorAlert,
   } = UseMessageAlerts();
 
+    const handleEditClick = (petId) => {
+        setEditModeId(petId);
+    };
+
+    const handleCancel = () => {
+        setEditModeId(null);
+    }
+
     return (
         <div>
 
