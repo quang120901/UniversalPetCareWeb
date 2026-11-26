@@ -1,5 +1,5 @@
 import React from "react";
-import { Accordion, Col, Container, Row } from "react-bootstrap";
+import { Accordion, Button, Col, Container, Row } from "react-bootstrap";
 import ReactDatePicker from "react-datepicker";
 
 const UserAppointments = ({appointments}) => {
@@ -16,7 +16,7 @@ const UserAppointments = ({appointments}) => {
                         </Accordion.Header>
                         <Accordion.Body>
                             <Row>
-                                <Col>
+                                <Col md={4}>
                                     <p>
                                         Appointment Number :{" "}
                                         <span className="text-info">
@@ -53,6 +53,15 @@ const UserAppointments = ({appointments}) => {
                                     The pet table is coming here
                                 </Col>
                             </Row>
+
+                            <div>
+                                <Button variant="warning" size="sm">
+                                    Update appointment
+                                </Button>
+                                <Button variant="danger" size="sm" className="ms-2">
+                                    Cancel appointment
+                                </Button>
+                            </div>
                         </Accordion.Body>
                     </Accordion.Item>)
                 })}
