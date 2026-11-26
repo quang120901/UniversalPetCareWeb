@@ -37,6 +37,15 @@ const UserAppointments = ({appointments}) => {
                                         dateFormat="MMMM d, yyyy h:mm aa"
                                         inline
                                     />
+
+                                    <p>
+                                        Time :
+                                        <span className="text-info">
+                                            {" "}
+                                            {appointment.appointmentTime}
+                                        </span>{" "}
+                                    </p>
+                                    <p>Reason: {appointment.reason}</p>
                                 </Col>
                             </Row>
                         </Accordion.Body>
