@@ -25,6 +25,26 @@ const PetsTable = ({ pets, appointmentId, onPetsUpdate, isEditable }) => {
         setEditModeId(null);
     }
 
+    const handleShowDeleteModal = (petId) => {
+        setPetToDelete(petId);
+        setShowDeleteModal(true);
+    }
+
+    const handleDeletePet = async () => {
+        if (petToDelete) {
+            try {
+                const response = await deletePet(petToDelete);
+                setSuccessMessage(response.message);
+                setShowDeleteModal(false);
+                setShowSuccessAlert(true);
+                onPetsUpdate(appointmentId);
+            } catch (error) {
+                setErrorMessage(error.message);
+                setShowErrorAlert(true);
+            }
+        }
+    }
+
     return (
         <div>
 
