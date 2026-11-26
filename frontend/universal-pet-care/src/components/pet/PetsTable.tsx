@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
+import DeleteConfirmationModal from "../modals/DeleteConfirmationModal";
 
 const PetsTable = ({ pets, appointmentId, onPetsUpdate, isEditable }) => {
     const [editModeId, setEditModeId] = useState(null);
@@ -58,9 +59,14 @@ const PetsTable = ({ pets, appointmentId, onPetsUpdate, isEditable }) => {
     }
 
     return (
-        <div>
-
-        </div>
+        <section>
+            <DeleteConfirmationModal
+                show={showDeleteModal}
+                onHide={() => setShowDeleteModal(false)}
+                onConfirm={handleDeletePet}
+                itemToDelete='pet'
+            />
+        </section>
     )
 }
 
