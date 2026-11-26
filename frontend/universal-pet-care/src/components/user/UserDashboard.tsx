@@ -6,6 +6,7 @@ import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import { deleteUserPhoto } from "../modals/ImageUploaderService";
 import AlertMessage from "../common/AlertMessage";
 import Review from "../review/Review";
+import UserAppointments from "../appointment/UserAppointments";
 
 const UserDashboard = () => {
     const [user, setUser] = useState(null);
@@ -81,6 +82,19 @@ const UserDashboard = () => {
                 </Tab>
                 <Tab eventKey='status' title={<h3>Appointments</h3>}></Tab>
                 <Tab eventKey='appointments' title={<h3>Appointment Details</h3>}></Tab>
+                    <Row>
+                        <Col>
+                            {user && (
+                                <React.Fragment>
+                                    {appointments && appointments.length > 0 ? (
+                                        <UserAppointments appointments={appointments} />    
+                                    ) : (
+                                        <p>No data</p>
+                                    )}
+                                </React.Fragment>
+                            )}
+                        </Col>
+                    </Row>
                 <Tab eventKey='reviews' title={<h3>Reviews</h3>}>
                         <Container className="d-flex justify-content-center align-items-center">
                             <Card className="mt-5 mb-4 review-card">
