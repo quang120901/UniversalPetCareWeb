@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { BsCheck } from "react-icons/bs";
+import { BsCheck, BsX } from "react-icons/bs";
 
 const EditablePetRow = ({ pet, index, onSave, onCancel }) => {
     const [editPet, setEditPet] = useState(pet);
@@ -41,6 +41,7 @@ const EditablePetRow = ({ pet, index, onSave, onCancel }) => {
                     onChange={handlePetChange}
                 />
             </td>
+
             <td>
                 {" "}
                 <Button
@@ -49,6 +50,12 @@ const EditablePetRow = ({ pet, index, onSave, onCancel }) => {
                     onClick={() => onSave(pet.id, editPet)}
                     className="me-2">
                     <BsCheck />
+                </Button>
+            </td>
+
+            <td colSpan={2}>
+                <Button variant="secondary" size="sm" onClick={onCancel}>
+                    <BsX />
                 </Button>
             </td>
         </tr>
