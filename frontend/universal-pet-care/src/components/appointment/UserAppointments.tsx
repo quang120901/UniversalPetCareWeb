@@ -47,6 +47,11 @@ const UserAppointments = ({appointments}) => {
                                     </p>
                                     <p>Reason: {appointment.reason}</p>
                                 </Col>
+
+                                <Col md={8} className="mt-2">
+                                    <h4>Pets:</h4>
+                                    The pet table is coming here
+                                </Col>
                             </Row>
                         </Accordion.Body>
                     </Accordion.Item>)
