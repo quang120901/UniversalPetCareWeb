@@ -7,15 +7,15 @@ const PetsTable = ({ pets, appointmentId, onPetsUpdate, isEditable }) => {
     const [petToDelete, setPetToDelete] = useState(null);
 
     const {
-    successMessage,
-    setSuccessMessage,
-    showSuccessAlert,
-    setShowSuccessAlert,
-    errorMessage,
-    setErrorMessage,
-    showErrorAlert,
-    setShowErrorAlert,
-  } = UseMessageAlerts();
+        successMessage,
+        setSuccessMessage,
+        showSuccessAlert,
+        setShowSuccessAlert,
+        errorMessage,
+        setErrorMessage,
+        showErrorAlert,
+        setShowErrorAlert,
+    } = UseMessageAlerts();
 
     const handleEditClick = (petId) => {
         setEditModeId(petId);
@@ -42,6 +42,18 @@ const PetsTable = ({ pets, appointmentId, onPetsUpdate, isEditable }) => {
                 setErrorMessage(error.message);
                 setShowErrorAlert(true);
             }
+        }
+    }
+
+    const handleSavePetUpdate = async (petId, updatedPet) => {
+        try {
+            const response = await updatePet(petId, updatedPet);
+            setSuccessMessage(response.message);
+            setEditModeId(null);
+            setShowSuccessAlert(true);
+        } catch (error) {
+            setErrorMessage(error.message);
+            setShowErrorAlert(true);
         }
     }
 
