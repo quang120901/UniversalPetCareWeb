@@ -1,5 +1,6 @@
 import React from "react";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
+import ReactDatePicker from "react-datepicker";
 
 const UserAppointments = ({appointments}) => {
     return (
@@ -22,6 +23,20 @@ const UserAppointments = ({appointments}) => {
                                             {appointment.appointmentNo}
                                         </span>{" "}
                                     </p>
+
+                                    <ReactDatePicker
+                                        selected={
+                                            new Date(
+                                                `${appointment.appointmentDate}T${appointment.appointmentTime}`
+                                            )
+                                        }
+                                        showTimeSelect
+                                        timeFormat="HH:mm"
+                                        timeIntervals={30}
+                                        timeCaption="time"
+                                        dateFormat="MMMM d, yyyy h:mm aa"
+                                        inline
+                                    />
                                 </Col>
                             </Row>
                         </Accordion.Body>
