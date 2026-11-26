@@ -9,6 +9,7 @@ import Review from "../review/Review";
 
 const UserDashboard = () => {
     const [user, setUser] = useState(null);
+    const [appointments, setAppointments] = useState([]);
 
     const {
     successMessage,
@@ -26,8 +27,11 @@ const UserDashboard = () => {
     useEffect(() => {
         const getUser = async () => {
             try {
-                const result = await getUserById(userId);
-                setUser(result.data);
+                console.log("The user id from the dashboard: ", userId);
+                const data = await getUserById(userId);
+                setUser(data.data);
+                setAppointments(data.data.appointments)
+                console.log("The user data from the dashboard: ", data.data)
             } catch (error) {
                 setErrorMessage(error.response.data.message);
                 setShowErrorAlert(true);
