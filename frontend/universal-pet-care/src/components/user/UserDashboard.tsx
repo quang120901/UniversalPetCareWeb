@@ -87,7 +87,9 @@ const UserDashboard = () => {
                             {user && (
                                 <React.Fragment>
                                     {appointments && appointments.length > 0 ? (
-                                        <UserAppointments appointments={appointments} />    
+                                        <UserAppointments 
+                                        user={user}
+                                        appointments={appointments} />    
                                     ) : (
                                         <p>No data</p>
                                     )}
