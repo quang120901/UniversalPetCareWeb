@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import DeleteConfirmationModal from "../modals/DeleteConfirmationModal";
+import AlertMessage from "../common/AlertMessage";
 
 const PetsTable = ({ pets, appointmentId, onPetsUpdate, isEditable }) => {
     const [editModeId, setEditModeId] = useState(null);
@@ -66,6 +67,12 @@ const PetsTable = ({ pets, appointmentId, onPetsUpdate, isEditable }) => {
                 onConfirm={handleDeletePet}
                 itemToDelete='pet'
             />
+            {showErrorAlert && (
+                <AlertMessage type="danger" message={errorMessage} />                
+            )}
+            {showSuccessAlert && (
+                <AlertMessage type='success' message={successMessage} />
+            )}
         </section>
     )
 }
