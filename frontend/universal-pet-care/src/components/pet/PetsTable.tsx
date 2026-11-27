@@ -77,7 +77,7 @@ const PetsTable = ({ pets, appointmentId, onPetsUpdate, isEditable, isPatient })
                 <AlertMessage type='success' message={successMessage} />
             )}
 
-            <Table>
+            <Table striped bordered hover size="sm">
                 <thead>
                     <tr>
                         <th>Name</th>
