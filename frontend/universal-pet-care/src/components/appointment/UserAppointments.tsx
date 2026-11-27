@@ -1,6 +1,7 @@
 import React from "react";
 import { Accordion, Button, Col, Container, Row } from "react-bootstrap";
 import ReactDatePicker from "react-datepicker";
+import PetsTable from "../pet/PetsTable";
 
 const UserAppointments = ({appointments}) => {
     return (
@@ -50,7 +51,11 @@ const UserAppointments = ({appointments}) => {
 
                                 <Col md={8} className="mt-2">
                                     <h4>Pets:</h4>
-                                    The pet table is coming here
+                                    <PetsTable
+                                        pets={appointment.pets}
+                                        appointmentId={appointment.id}
+                                        onPetsUpdate={}
+                                    />
                                 </Col>
                             </Row>
 
