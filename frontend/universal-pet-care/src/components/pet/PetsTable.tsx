@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import DeleteConfirmationModal from "../modals/DeleteConfirmationModal";
 import AlertMessage from "../common/AlertMessage";
+import { Table } from "react-bootstrap";
 
 const PetsTable = ({ pets, appointmentId, onPetsUpdate, isEditable }) => {
     const [editModeId, setEditModeId] = useState(null);
@@ -73,6 +74,19 @@ const PetsTable = ({ pets, appointmentId, onPetsUpdate, isEditable }) => {
             {showSuccessAlert && (
                 <AlertMessage type='success' message={successMessage} />
             )}
+
+            <Table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Breed</th>
+                        <th>Color</th>
+                        <th>Age</th>
+                        <th colSpan={3}>Actions</th>
+                    </tr>
+                </thead>
+            </Table>
         </section>
     )
 }
