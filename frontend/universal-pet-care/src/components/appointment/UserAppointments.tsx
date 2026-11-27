@@ -4,6 +4,9 @@ import ReactDatePicker from "react-datepicker";
 import PetsTable from "../pet/PetsTable";
 
 const UserAppointments = ({appointments}) => {
+    const handlePetsUpdate = () => {
+
+    }
     return (
         <Container className="p-5">
             <Accordion className="mt-4 mb-5">
@@ -54,7 +57,8 @@ const UserAppointments = ({appointments}) => {
                                     <PetsTable
                                         pets={appointment.pets}
                                         appointmentId={appointment.id}
-                                        onPetsUpdate={}
+                                        onPetsUpdate={handlePetsUpdate}
+                                        isEditable={""}
                                     />
                                 </Col>
                             </Row>
