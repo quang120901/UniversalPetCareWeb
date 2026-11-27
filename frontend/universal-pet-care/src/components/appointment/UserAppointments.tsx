@@ -2,7 +2,7 @@ import React from "react";
 import { Accordion, Button, Col, Container, Row } from "react-bootstrap";
 import ReactDatePicker from "react-datepicker";
 import PetsTable from "../pet/PetsTable";
-import { UserType } from "../utils/utilities";
+import { formatAppointmentStatus, UserType } from "../utils/utilities";
 
 const UserAppointments = ({ user, appointments }) => {
     const handlePetsUpdate = () => {
@@ -12,6 +12,11 @@ const UserAppointments = ({ user, appointments }) => {
         <Container className="p-5">
             <Accordion className="mt-4 mb-5">
                 {appointments.map((appointment, index) => {
+                    const formattedStatus = formatAppointmentStatus(appointment.status);
+                    const isWaitingForApproval = formattedStatus === "waiting-for-approval";
+
+
+
                     return(<Accordion.Item eventKey={index} key={index} className="mb-2">
                         <Accordion.Header>
                             <div>
