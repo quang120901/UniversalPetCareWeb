@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import DeleteConfirmationModal from "../modals/DeleteConfirmationModal";
 import AlertMessage from "../common/AlertMessage";
-import { Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import EditablePetRow from "./EditablePetRow";
+import { BsPencilFill, BsTrashFill } from "react-icons/bs";
 
 const PetsTable = ({ pets, appointmentId, onPetsUpdate, isEditable }) => {
     const [editModeId, setEditModeId] = useState(null);
@@ -70,7 +71,7 @@ const PetsTable = ({ pets, appointmentId, onPetsUpdate, isEditable }) => {
                 itemToDelete='pet'
             />
             {showErrorAlert && (
-                <AlertMessage type="danger" message={errorMessage} />                
+                <AlertMessage type="danger" message={errorMessage} />
             )}
             {showSuccessAlert && (
                 <AlertMessage type='success' message={successMessage} />
@@ -99,16 +100,34 @@ const PetsTable = ({ pets, appointmentId, onPetsUpdate, isEditable }) => {
                                     onCancel={handleCancel}
                                 />
                             ) : (
-                            <tr key={pet.id}>
-                                <td>{pet.name}</td>
-                                <td>{pet.type}</td>
-                                <td>{pet.breed}</td>
-                                <td>{pet.color}</td>
-                                <td>{pet.age}</td>
-                            </tr>
+                                <tr key={pet.id}>
+                                    <td>{pet.name}</td>
+                                    <td>{pet.type}</td>
+                                    <td>{pet.breed}</td>
+                                    <td>{pet.color}</td>
+                                    <td>{pet.age}</td>
+                                    <React.Fragment>
+                                        <td>
+                                            <Button
+                                                className="btn btn-sm btn-warning"
+                                                disabled={!isEditable}
+                                                onClick={() => handleEditClick(pet.id)}>
+                                                <BsPencilFill />
+                                            </Button>
+                                        </td>
+                                        <td>
+                                            <Button
+                                                className="btn btn-sm btn-danger"
+                                                disabled={!isEditable}
+                                                onClick={() => handleShowDeleteModal(pet.id)}>
+                                                <BsTrashFill />
+                                            </Button>
+                                        </td>
+                                    </React.Fragment>
+                                </tr>
 
-                            
-                            )}
+
+                            ))}
                 </tbody>
             </Table>
         </section>
