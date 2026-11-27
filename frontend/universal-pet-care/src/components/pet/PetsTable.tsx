@@ -3,6 +3,7 @@ import UseMessageAlerts from "../hooks/UseMessageAlerts";
 import DeleteConfirmationModal from "../modals/DeleteConfirmationModal";
 import AlertMessage from "../common/AlertMessage";
 import { Table } from "react-bootstrap";
+import EditablePetRow from "./EditablePetRow";
 
 const PetsTable = ({ pets, appointmentId, onPetsUpdate, isEditable }) => {
     const [editModeId, setEditModeId] = useState(null);
@@ -86,6 +87,29 @@ const PetsTable = ({ pets, appointmentId, onPetsUpdate, isEditable }) => {
                         <th colSpan={3}>Actions</th>
                     </tr>
                 </thead>
+                <tbody>
+                    {Array.isArray(pets) &&
+                        pets.map((pet, index) =>
+                            editModeId === pet.id ? (
+                                <EditablePetRow
+                                    key={index}
+                                    pet={pet}
+                                    index={index}
+                                    onSave={handleSavePetUpdate}
+                                    onCancel={handleCancel}
+                                />
+                            ) : (
+                            <tr key={pet.id}>
+                                <td>{pet.name}</td>
+                                <td>{pet.type}</td>
+                                <td>{pet.breed}</td>
+                                <td>{pet.color}</td>
+                                <td>{pet.age}</td>
+                            </tr>
+
+                            
+                            )}
+                </tbody>
             </Table>
         </section>
     )
