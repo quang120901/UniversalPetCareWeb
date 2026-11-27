@@ -64,7 +64,7 @@ const UserAppointments = ({ user, appointments }) => {
                                         pets={appointment.pets}
                                         appointmentId={appointment.id}
                                         onPetsUpdate={handlePetsUpdate}
-                                        isEditable={""}
+                                        isEditable={isWaitingForApproval}
                                         isPatient={user.userType === UserType.PATIENT}
                                     />
                                 </Col>
