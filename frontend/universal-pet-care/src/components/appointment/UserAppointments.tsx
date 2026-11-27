@@ -21,7 +21,7 @@ const UserAppointments = ({ user, appointments }) => {
                         <Accordion.Header>
                             <div>
                                 <div className="mb-3">Date: { appointment.appointmentDate }</div>
-                                <div>Status: { appointment.status }</div>
+                                <div>Status: { formattedStatus }</div>
                             </div>
                         </Accordion.Header>
                         <Accordion.Body>
