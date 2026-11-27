@@ -2,8 +2,9 @@ import React from "react";
 import { Accordion, Button, Col, Container, Row } from "react-bootstrap";
 import ReactDatePicker from "react-datepicker";
 import PetsTable from "../pet/PetsTable";
+import { UserType } from "../utils/utilities";
 
-const UserAppointments = ({appointments}) => {
+const UserAppointments = ({ user, appointments }) => {
     const handlePetsUpdate = () => {
 
     }
@@ -59,6 +60,7 @@ const UserAppointments = ({appointments}) => {
                                         appointmentId={appointment.id}
                                         onPetsUpdate={handlePetsUpdate}
                                         isEditable={""}
+                                        isPatient={user.userType === UserType.PATIENT}
                                     />
                                 </Col>
                             </Row>
